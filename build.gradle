@@ -45,6 +45,9 @@ dependencies {
 	compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.0')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile 'com.zaxxer:HikariCP:2.5.1'
+	compile 'javax.mail:mail:1.4'
+	compile 'com.qiniu:qiniu-java-sdk:7.1.0'
+	compile 'commons-dbcp:commons-dbcp:1.2.2'
 	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

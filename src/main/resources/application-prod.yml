@@ -56,3 +56,6 @@ mybatis:
     config-location: classpath:mybatis-config.xml
 pic:
     home: /Users/hzeng/temp/blog/pic
+
+
+
