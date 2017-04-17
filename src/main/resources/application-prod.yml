@@ -36,20 +36,28 @@ spring:
         cache-names: ehcache
         ehcache:
             config: ehcache.xml
+
     datasource:
-        type: com.zaxxer.hikari.HikariDataSource
-        username: guest
-        password: 123456
-        url: jdbc:mysql://127.0.0.1:3306/jcala_blog?useUnicode:true&amp;characterEncoding:UTF-8&amp;useSSL=false
-        driverClassName: com.mysql.jdbc.Driver
-        schema: classpath:import.sql
-        data: classpath:data.sql
-        initialize: false
-        sql-script-encoding: UTF-8
-        hikari:
-            connection-timeout: 30000
-            maximum-pool-size: 50
-            minimum-idle: 5
+          driver-class-name: com.mysql.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/df?useSSL=false
+          username: guest
+          password: 123456
+
+
+#    datasource:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        username: guest
+#        password: 123456
+#        url: jdbc:mysql://127.0.0.1:3306/jcala_blog?useUnicode:true&amp;characterEncoding:UTF-8&amp;useSSL=false
+#        driverClassName: com.mysql.jdbc.Driver
+#        schema: classpath:import.sql
+#        data: classpath:data.sql
+#        initialize: false
+#        sql-script-encoding: UTF-8
+#        hikari:
+#            connection-timeout: 30000
+#            maximum-pool-size: 50
+#            minimum-idle: 5
 mybatis:
     type-aliases-package: me.jcala.blog.domain,me.jcala.blog.mapping
     type-handlers-package: org.apache.ibatis.type.LocalDateTypeHandler
