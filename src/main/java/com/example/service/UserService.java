@@ -4,6 +4,7 @@ import com.example.async.MailTask;
 import com.example.mapper.UserMapper;
 import com.example.model.Info;
 import com.example.model.User;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -29,6 +30,11 @@ public class UserService {
 
     @Autowired
     private JedisPool jedisPool;
+
+//    @Autowired
+//    public UserService(JedisPool jedisPool){
+//        this.jedisPool = jedisPool;
+//    }
 
     public User getProfile(int sessionUid, int uid) {
         //如果是浏览别人的主页，则增加主页浏览数

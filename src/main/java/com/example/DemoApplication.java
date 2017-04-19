@@ -6,13 +6,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
 @EnableAutoConfiguration
 @Configuration
 @ImportResource("application-context.xml")
+// @ComponentScan("com.example.config")
+@Import(com.example.config.PoolConfig.class)
 public class DemoApplication implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory.getLogger(DemoApplication.class);
 

@@ -15,32 +15,24 @@
 
     <context:property-placeholder location="classpath:df.properties"/>
 
-    <!--数据源-->
-	<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">-->
-		<!--<property name="url" value="${mysql.url}" />-->
-		<!--<property name="driverClassName" value="${mysql.driverClassName}" />-->
-		<!--<property name="username" value="${mysql.username}" />-->
-        <!--&lt;!&ndash;MySQL密码&ndash;&gt;-->
-		<!--<property name="password" value="${mysql.password}" />-->
-	<!--</bean>-->
 
     <!-- Redis连接池的配置 -->
-    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig" >
-        <property name="maxTotal" value="${redis.pool.maxActive}"/>
-        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
-        <property name="minIdle" value="${redis.pool.minIdle}"/>
-        <property name="maxWaitMillis" value="${redis.pool.maxWait}"/>
-        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
-        <property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
-    </bean>
-    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
-        <constructor-arg index="0" ref="jedisPoolConfig"/>
-        <constructor-arg index="1" value="${redis.hostName}" />
-        <constructor-arg index="2" value="${redis.port}" />
-        <constructor-arg index="3" value="${redis.timeout}" />
-        <!--Redis密码-->
-        <constructor-arg index="4" value="${redis.password}" />
-    </bean>
+    <!--<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig" >-->
+        <!--<property name="maxTotal" value="${redis.pool.maxActive}"/>-->
+        <!--<property name="maxIdle" value="${redis.pool.maxIdle}"/>-->
+        <!--<property name="minIdle" value="${redis.pool.minIdle}"/>-->
+        <!--<property name="maxWaitMillis" value="${redis.pool.maxWait}"/>-->
+        <!--<property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>-->
+        <!--<property name="testOnReturn" value="${redis.pool.testOnReturn}"/>-->
+    <!--</bean>-->
+    <!--<bean id="jedisPool" class="redis.clients.jedis.JedisPool">-->
+        <!--<constructor-arg index="0" ref="jedisPoolConfig"/>-->
+        <!--<constructor-arg index="1" value="${redis.hostName}" />-->
+        <!--<constructor-arg index="2" value="${redis.port}" />-->
+        <!--<constructor-arg index="3" value="${redis.timeout}" />-->
+        <!--&lt;!&ndash;Redis密码&ndash;&gt;-->
+        <!--<constructor-arg index="4" value="${redis.password}" />-->
+    <!--</bean>-->
 
     <!--邮件处理-->
     <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

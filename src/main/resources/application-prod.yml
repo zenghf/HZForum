@@ -1,3 +1,8 @@
+sql:
+    username: guest
+    password: 123456
+
+
 server:
     port: 8080
     max-http-header-size: 8192
@@ -40,30 +45,64 @@ spring:
     datasource:
           driver-class-name: com.mysql.jdbc.Driver
           url: jdbc:mysql://127.0.0.1:3306/df?useSSL=false
-          username: guest
-          password: 123456
+          username: ${sql.username}
+          password: ${sql.password}
+    redis:
+        pool:
+            host: localhost # Redis server host.
+            port: 6379 # Redis server port.
+            timeout: 5000 # Connection timeout in milliseconds.
+            password:  password123456 # Login password of the redis server.
+        max-total: 200
+        max-active: 200 # Max number of connections that can be allocated by the pool at a given time. Use a negative value for no limit.
+        max-idle: 50 # Max number of "idle" connections in the pool. Use a negative value to indicate an unlimited number of idle connections.
+        max-wait: -1 # Maximum amount of time (in milliseconds) a connection allocation should block before throwing an exception when the pool is exhausted. Use a negative value to block indefinitely.
+        min-idle: 20 # Target for the minimum number of idle connections to maintain in the pool. This setting only has an effect if it is positive.
+        maxWaitMillis: 3000
+        test-on-borrow: true
+        test-on-return: true
 
 
-#    datasource:
-#        type: com.zaxxer.hikari.HikariDataSource
-#        username: guest
-#        password: 123456
-#        url: jdbc:mysql://127.0.0.1:3306/jcala_blog?useUnicode:true&amp;characterEncoding:UTF-8&amp;useSSL=false
-#        driverClassName: com.mysql.jdbc.Driver
-#        schema: classpath:import.sql
-#        data: classpath:data.sql
-#        initialize: false
-#        sql-script-encoding: UTF-8
-#        hikari:
-#            connection-timeout: 30000
-#            maximum-pool-size: 50
-#            minimum-idle: 5
+
+#        <property name="maxTotal" value="${redis.pool.maxActive}"/>
+#        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
+#        <property name="minIdle" value="${redis.pool.minIdle}"/>
+#        <property name="maxWaitMillis" value="${redis.pool.maxWait}"/>
+#        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
+#        <property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
+
+#    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig" >
+#        <property name="maxTotal" value="${redis.pool.maxActive}"/>
+#        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
+#        <property name="minIdle" value="${redis.pool.minIdle}"/>
+#        <property name="maxWaitMillis" value="${redis.pool.maxWait}"/>
+#        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
+#        <property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
+#    </bean>
+
+
+
 mybatis:
     type-aliases-package: me.jcala.blog.domain,me.jcala.blog.mapping
     type-handlers-package: org.apache.ibatis.type.LocalDateTypeHandler
     config-location: classpath:mybatis-config.xml
 pic:
     home: /Users/hzeng/temp/blog/pic
+
+
+#jedisPoolConfig:
+#    maxTotal: 200
+#    maxIdle: 50
+#    minIdle: 20
+#    maxWaitMillis: 300
+#    testOnBorrow: true
+#    testOnReturn: true
+#
+#jedisPool: ${jedisPoolConfig}, localhost, 6379, 5000, password123456
+
+
+
+
 
 
 
