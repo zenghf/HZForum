@@ -56,8 +56,8 @@ public class IndexController {
         model.addAttribute("pageBean",pageBean);
         model.addAttribute("userList",userList);
         model.addAttribute("hotUserList",hotUserList);
-        Integer uid = (Integer) session.getAttribute("uid");
-        model.addAttribute("uid", uid);
+//        Integer uid = (Integer) session.getAttribute("uid");
+//        model.addAttribute("uid", uid);
         return "index";
     }
 

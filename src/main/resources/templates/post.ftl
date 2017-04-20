@@ -38,9 +38,9 @@
                         <#if liked>
                             <span class="up-count"><a style="color:#2e6da4;">已赞 ${post.likeCount}</a></span>&nbsp;
                         </#if>
-                        <if Session.uid?exists>
+                        <#if Session.uid?exists>
                             <span class="up-count"><a href="#" id="like-button">赞 ${post.likeCount}</a></span>&nbsp;
-                        </if>
+                        </#if>
 
 						<span class="scan-count"><a href="#">浏览 ${post.scanCount}</a></span>
 					</div>

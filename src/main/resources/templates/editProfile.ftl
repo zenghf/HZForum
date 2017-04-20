@@ -1,6 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" import="java.util.*" %>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<title></title>
@@ -10,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="css/editProfile.css">
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<#include "header.ftl">
 
 
 	<!-- 中间主体板块 -->
@@ -42,7 +40,7 @@
 		<div class="edit-header"><span></span>&nbsp;修改密码</div>
 		<form action="updatePassword.do" method="post">
 			<div class="edit-title">
-                <div class="text-danger">${passwordError}</div>
+                <div class="text-danger">${passwordError!''}</div>
 				原密码：<input type="password" name="password">
 			</div>
 			<div class="edit-title">
@@ -60,7 +58,7 @@
         <div class="edit-header"><span></span>&nbsp;更换头像</div>
         <form action="updateHeadUrl.do" method="post" enctype="multipart/form-data">
             <div class="edit-title">
-				<span class="text-danger">${error3}</span>
+				<span class="text-danger">${error3!''}</span>
                 <input type="file" name="myFileName">
             </div>
             <div class="relative">
@@ -71,7 +69,7 @@
 	</div><!-- 主体结束 -->
 
 
-<%@ include file="footer.jsp" %>
+<#include "footer.ftl">
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 
 </body>

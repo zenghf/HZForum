@@ -10,9 +10,9 @@
         </ul>
 
         <ul class="right-nav">
-            <#if uid??>
+            <#if Session.uid?exists>
                 <li class="login2 relative">
-                    <a href="toMyProfile.do" id="profile"><img src="${sessionScope.headUrl!''}"></a>
+                    <a href="toMyProfile.do" id="profile"><img src="${Session.headUrl!''}"></a>
                     <ul id="down-menu">
                         <li><a href="toMyProfile.do">个人主页</a></li>
                         <li><a href="logout.do">退出登录</a></li>

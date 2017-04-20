@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.mapper.UserMapper">
 
+    <!--TODO:// fix User mapper-->
+    <resultMap type="com.example.model.User" id="userMap">
+        <id column="uid" property="uid"></id>
+        <result column="username" property="username"></result>
+        <result column="head_url" property="headUrl"></result>
+    </resultMap>
+
 
 	<select id="selectEmailCount" resultType="int">
         select count(*) from user where email = #{email}
@@ -18,7 +25,7 @@
         select actived from user where email=#{email}
     </select>
 
-    <select id="selectUserByUid" resultType="com.example.model.User">
+    <select id="selectUserByUid" resultType="com.example.model.User" resultMap="userMap">
         select uid,username,description,position,school,job,head_url,follow_count,follower_count,like_count,post_count,scan_count
         from user
         where uid=#{uid}
@@ -28,7 +35,7 @@
         select uid from user where email=#{email} and password=#{password}
     </select>
 
-    <select id="selectEditInfo" resultType="com.example.model.User">
+    <select id="selectEditInfo" resultType="com.example.model.User" resultMap="userMap">
         select uid,username,description,position,school,job from user
         where uid=#{uid}
     </select>
@@ -50,11 +57,11 @@
         insert into info values(null,#{requestUrl},#{contextPath},#{remoteAddr},null)
     </insert>
 
-    <select id="listUserByTime" resultType="com.example.model.User">
+    <select id="listUserByTime" resultType="com.example.model.User" resultMap="userMap">
         select uid,username,head_url from user order by join_time desc limit 6
     </select>
 
-    <select id="listUserByHot" resultType="com.example.model.User">
+    <select id="listUserByHot" resultType="com.example.model.User" resultMap="userMap">
         select uid,username,head_url from user order by post_count desc limit 6
     </select>
 
@@ -70,7 +77,7 @@
         update user set scan_count = scan_count + 1 where uid = #{uid}
     </update>
 
-    <select id="selectUsernameByUid" resultType="com.example.model.User">
+    <select id="selectUsernameByUid" resultType="com.example.model.User" resultMap="userMap">
         select uid,username from user where uid=#{uid}
     </select>
 

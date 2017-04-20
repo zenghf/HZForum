@@ -1,7 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" import="java.util.*" %>
-<%--<%@ page isELIgnored="false"%>--%>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<title></title>
@@ -11,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<#include "header.ftl">
 
 
 	<!-- 中间主体板块 -->
@@ -23,10 +20,10 @@
 		<div class="contents">
 			<div id="login-area">
 				<form action="login.do" method="post">
-					<div class="error-message">${error}</div>
+					<div class="error-message">${error!''}</div>
 					<div class="email">
 						邮箱&nbsp;
-						<input id="login-email" type="text" name="email" value="${email}" required>
+						<input id="login-email" type="text" name="email" value="${email!''}" required>
 					</div>
 					<div class="password">
 						密码&nbsp;
@@ -38,10 +35,10 @@
 			</div>
 			<div id="register-area">
 				<form action="register.do" method="post">
-					<div id="error-message" class="error-message">${error}</div>
+					<div id="error-message" class="error-message">${error!''}</div>
 					<div class="email">
 						邮箱&nbsp;
-						<input type="text" name="email" value="${email}" id="email" required>
+						<input type="text" name="email" value="${email!''}" id="email" required>
 					</div>
 					<div class="password">
 						密码&nbsp;
@@ -61,7 +58,7 @@
 
 
 
-<%@ include file="footer.jsp" %>
+<#include "footer.ftl">
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">
@@ -97,7 +94,7 @@
         }
 
         //根据是否是注册跳回来，切换到注册页面
-        var hideInfo = "${register}";
+        var hideInfo = "${register!''}";
         if(hideInfo!=null && hideInfo!=""){
             registerButton.click();
         }

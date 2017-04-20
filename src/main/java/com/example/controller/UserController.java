@@ -58,8 +58,8 @@ public class UserController {
     @RequestMapping("/toProfile.do")
     public String toProfile(int uid, Model model, HttpSession session) {
         //如果是自己的页面，直接跳转到本人个人主页
-        int sessionUid = (int) session.getAttribute("uid");
-        if(sessionUid==uid){
+        Integer sessionUid = (Integer) session.getAttribute("uid");
+        if(sessionUid != null && sessionUid.equals(uid)){
             return "redirect:toMyProfile.do";
         }
         //判断是否关注当前用户

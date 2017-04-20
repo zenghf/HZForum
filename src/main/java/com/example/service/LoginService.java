@@ -86,12 +86,13 @@ public class LoginService {
             return map;
         }
 
-        int checkActived = userMapper.selectActived(user);
-        if(checkActived==0){
-            map.put("status","no");
-            map.put("error","您还没有激活账户哦，请前往邮箱激活~");
-            return map;
-        }
+//        TODO: fix email activation service
+//        int checkActived = userMapper.selectActived(user);
+//        if(checkActived==0){
+//            map.put("status","no");
+//            map.put("error","您还没有激活账户哦，请前往邮箱激活~");
+//            return map;
+//        }
 
         String headUrl = userMapper.selectHeadUrl(uid);
 

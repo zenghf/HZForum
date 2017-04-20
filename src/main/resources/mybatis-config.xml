@@ -24,4 +24,7 @@
         <!--<setting name="defaultStatementTimeout" value="25000"/>-->
         <setting name="logImpl" value="SLF4J"/>
     </settings>
+    <mappers>
+        <package name="com.example.mapper"/>
+    </mappers>
 </configuration>

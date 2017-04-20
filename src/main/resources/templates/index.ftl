@@ -29,8 +29,7 @@
                         <#list pageBean.list as post>
                             <li class="clearfix">
                                 <div class="post-image">
-                                    <#--TODO://fix this link later-->
-                                    <#--<a href="toProfile.do?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a>-->
+                                    <a href="toProfile.do?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a>
                                 </div>
                                 <div class="post-content">
                                     <div class="post-title"><a href="toPost.do?pid=${post.pid}">${post.title}</a></div>
@@ -54,85 +53,78 @@
 
 					</ul>
 
-                    <#--&lt;#&ndash;<%--分页导航--%>&ndash;&gt;-->
-                    <#--<nav class="col-md-10 col-md-offset-2">-->
-                        <#--<ul class="pagination pagination-sm">-->
-                            <#--<%--首页--%>-->
-                            <#--<li><a href="listPostByTime.do?curPage=1">首页</a></li>-->
-                            <#--<%--上一页--%>-->
-                            <#--<c:choose>-->
-                                <#--<c:when test="${pageBean.curPage!=1 }">-->
-                                    <#--<li><a href="listPostByTime.do?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a></li>-->
-                                <#--</c:when>-->
-                                <#--<c:otherwise>-->
-                                    <#--<li><span>&laquo;</span></li>-->
-                                <#--</c:otherwise>-->
-                            <#--</c:choose>-->
-                            <#--<%--中间部分--%>-->
-                            <#--<c:choose>-->
-                                <#--<c:when test="${pageBean.allPage<=10 }">-->
-                                    <#--<c:forEach begin="1" end="${ pageBean.allPage}" var="i">-->
-                                        <#--<li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>-->
-                                    <#--</c:forEach>-->
-                                <#--</c:when>-->
-                                <#--<c:when test="${pageBean.curPage<=5 }">-->
-                                    <#--<c:forEach begin="1" end="10" var="i">-->
-                                        <#--<li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>-->
-                                    <#--</c:forEach>-->
-                                <#--</c:when>-->
-                                <#--<c:when test="${pageBean.allPage-pageBean.curPage<5 }">-->
-                                    <#--<c:forEach begin="${pageBean.allPage-9 }" end="${ pageBean.allPage}" var="i">-->
-                                        <#--<li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>-->
-                                    <#--</c:forEach>-->
-                                <#--</c:when>-->
-                                <#--<c:otherwise>-->
-                                    <#--<c:forEach begin="${pageBean.curPage-4 }" end="${ pageBean.curPage+5}" var="i">-->
-                                        <#--<li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>-->
-                                    <#--</c:forEach>-->
-                                <#--</c:otherwise>-->
-                            <#--</c:choose>-->
-                            <#--<%--下一页--%>-->
-                            <#--<c:choose>-->
-                                <#--<c:when test="${pageBean.curPage!=pageBean.allPage }">-->
-                                    <#--<li><a href="listPostByTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>-->
-                                <#--</c:when>-->
-                                <#--<c:otherwise>-->
-                                    <#--<li><span>&raquo;</span></li>-->
-                                <#--</c:otherwise>-->
-                            <#--</c:choose>-->
-                            <#--<%--尾页--%>-->
-                            <#--<li><a href="listPostByTime.do?curPage=${pageBean.allPage}">尾页</a></li>-->
-                        <#--</ul>-->
-                    <#--</nav>-->
+                    <#--Page Navigation-->
+                    <nav class="col-md-10 col-md-offset-2">
+                        <ul class="pagination pagination-sm">
+                            <#--First Page-->
+                            <li><a href="listPostByTime.do?curPage=1">首页</a></li>
+                            <#--Previous Page-->
+                            <#if pageBean.curPage!=1>
+                                <li><a href="listPostByTime.do?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a></li>
+                            <#else>
+                                <li><span>&laquo;</span></li>
+                            </#if>
+
+                            <#--Center-->
+                            <#if pageBean.allPage lte 10>
+                                <#list 1..pageBean.allPage as i>
+                                    <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                </#list>
+                            <#elseif pageBean.curPage lte 5>
+                                <#list 1..10 as i>
+                                    <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                </#list>
+                            <#elseif pageBean.allPage - pageBean.curPage lte 5>
+                                <#list (pageBean.allPage-9)..pageBean.allPage as i>
+                                    <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                </#list>
+                            <#else>
+                                <#list (pageBean.curPage-4)..(pageBean.curPage+5) as i>
+                                    <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                </#list>
+                            </#if>
+
+                            <#--Next Page-->
+                            <#if pageBean.curPage != pageBean.allPage>
+                                <li><a href="listPostByTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
+                            <#else>
+                                <li><span>&raquo;</span></li>
+                            </#if>
+
+                            <#--Last Page    -->
+                            <li><a href="listPostByTime.do?curPage=${pageBean.allPage}">尾页</a></li>
+                        </ul>
+                    </nav>
 
 				</div>
 			</div>
 		</div>
 		<div class="main-right">
-			
-			<#--<div class="hot-user">-->
-				<#--<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;近期活跃用户</div></div>-->
-				<#--<ul class="hot-user-list">-->
-					<#--<c:forEach items="${hotUserList}" var="user">-->
-						<#--<li class="clearfix">-->
-							<#--<a href="toProfile.do?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl}"></a>-->
-							<#--<a href="toProfile.do?uid=${user.uid}" class="hot-user-name">${user.username}</a>-->
-						<#--</li>-->
-					<#--</c:forEach>-->
-				<#--</ul>-->
-			<#--</div>-->
 
-			<#--<div class="hot-user">-->
-				<#--<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;近期加入用户</div></div>-->
-				<#--<ul class="hot-user-list">-->
-					<#--<c:forEach items="${userList}" var="user">-->
-						<#--<li class="clearfix">-->
-							<#--<a href="toProfile.do?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl}"></a>-->
-							<#--<a href="toProfile.do?uid=${user.uid}" class="hot-user-name">${user.username}</a>-->
-						<#--</li>-->
-					<#--</c:forEach>-->
-				<#--</ul>-->
-			<#--</div>-->
+
+        <div class="hot-user">
+            <div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;近期活跃用户</div></div>
+            <ul class="hot-user-list">
+                <#list hotUserList as user>
+                    <li class="clearfix">
+                        <a href="toProfile.do?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl!''}"></a>
+                        <a href="toProfile.do?uid=${user.uid}" class="hot-user-name">${user.username}</a>
+                    </li>
+                </#list>
+            </ul>
+        </div>
+
+        <div class="hot-user">
+            <div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;近期加入用户</div></div>
+            <ul class="hot-user-list">
+                <#list userList as user>
+                    <li class="clearfix">
+                        <a href="toProfile.do?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl!''}"></a>
+                        <a href="toProfile.do?uid=${user.uid}" class="hot-user-name">${user.username}</a>
+                    </li>
+                </#list>
+            </ul>
+        </div>
 
 		</div>
 	</div>
