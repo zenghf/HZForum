@@ -14,7 +14,7 @@
 			<div class="share">
 				<div class="share-left"><span></span>&nbsp;分享与提问</div>
 				<div class="share-right">
-					<a href="toPublish.do"><span class="glyphicon glyphicon-pencil"></span>&nbsp;我要发布</a>
+					<a href="toPublish""><span class="glyphicon glyphicon-pencil"></span>&nbsp;我要发布</a>
 				</div>
 			</div>
 			<div class="post">
@@ -29,13 +29,13 @@
                         <#list pageBean.list as post>
                             <li class="clearfix">
                                 <div class="post-image">
-                                    <a href="toProfile.do?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a>
+                                    <a href="toProfile"?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a>
                                 </div>
                                 <div class="post-content">
-                                    <div class="post-title"><a href="toPost.do?pid=${post.pid}">${post.title}</a></div>
+                                    <div class="post-title"><a href="toPost"?pid=${post.pid}">${post.title}</a></div>
                                     <div class="post-other">
                                         <div class="post-other-left">
-                                            <span class="post-username"><a href="toProfile.do?uid=${post.user.uid}">${post.user.username}</a></span>
+                                            <span class="post-username"><a href="toProfile"?uid=${post.user.uid}">${post.user.username}</a></span>
                                             <span>&nbsp;发表</span>
                                             <span class="post-time">&nbsp;${post.publishTime}</span>
                                             <span>&nbsp;最后回复&nbsp;</span>
@@ -57,10 +57,10 @@
                     <nav class="col-md-10 col-md-offset-2">
                         <ul class="pagination pagination-sm">
                             <#--First Page-->
-                            <li><a href="listPostByTime.do?curPage=1">首页</a></li>
+                            <li><a href="listPostByTime"?curPage=1">首页</a></li>
                             <#--Previous Page-->
                             <#if pageBean.curPage!=1>
-                                <li><a href="listPostByTime.do?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a></li>
+                                <li><a href="listPostByTime"?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a></li>
                             <#else>
                                 <li><span>&laquo;</span></li>
                             </#if>
@@ -68,31 +68,31 @@
                             <#--Center-->
                             <#if pageBean.allPage lte 10>
                                 <#list 1..pageBean.allPage as i>
-                                    <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                    <li class="pageNum"><a href="listPostByTime"?curPage=${i }">${i }</a></li>
                                 </#list>
                             <#elseif pageBean.curPage lte 5>
                                 <#list 1..10 as i>
-                                    <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                    <li class="pageNum"><a href="listPostByTime"?curPage=${i }">${i }</a></li>
                                 </#list>
                             <#elseif pageBean.allPage - pageBean.curPage lte 5>
                                 <#list (pageBean.allPage-9)..pageBean.allPage as i>
-                                    <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                    <li class="pageNum"><a href="listPostByTime"?curPage=${i }">${i }</a></li>
                                 </#list>
                             <#else>
                                 <#list (pageBean.curPage-4)..(pageBean.curPage+5) as i>
-                                    <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                    <li class="pageNum"><a href="listPostByTime"?curPage=${i }">${i }</a></li>
                                 </#list>
                             </#if>
 
                             <#--Next Page-->
                             <#if pageBean.curPage != pageBean.allPage>
-                                <li><a href="listPostByTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
+                                <li><a href="listPostByTime"?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
                             <#else>
                                 <li><span>&raquo;</span></li>
                             </#if>
 
                             <#--Last Page    -->
-                            <li><a href="listPostByTime.do?curPage=${pageBean.allPage}">尾页</a></li>
+                            <li><a href="listPostByTime"?curPage=${pageBean.allPage}">尾页</a></li>
                         </ul>
                     </nav>
 
@@ -107,8 +107,8 @@
             <ul class="hot-user-list">
                 <#list hotUserList as user>
                     <li class="clearfix">
-                        <a href="toProfile.do?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl!''}"></a>
-                        <a href="toProfile.do?uid=${user.uid}" class="hot-user-name">${user.username}</a>
+                        <a href="toProfile"?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl!''}"></a>
+                        <a href="toProfile"?uid=${user.uid}" class="hot-user-name">${user.username}</a>
                     </li>
                 </#list>
             </ul>
@@ -119,8 +119,8 @@
             <ul class="hot-user-list">
                 <#list userList as user>
                     <li class="clearfix">
-                        <a href="toProfile.do?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl!''}"></a>
-                        <a href="toProfile.do?uid=${user.uid}" class="hot-user-name">${user.username}</a>
+                        <a href="toProfile"?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl!''}"></a>
+                        <a href="toProfile"?uid=${user.uid}" class="hot-user-name">${user.username}</a>
                     </li>
                 </#list>
             </ul>

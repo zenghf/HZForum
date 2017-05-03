@@ -13,7 +13,7 @@ public class MyConstant {
 
     //域名
     public static final String DOMAIN_NAME = "http://localhost:8080/df/";
-    //public static final String DOMAIN_NAME = "http://www.doublefuck.top/";
+    //public static final String DOMAIN_NAME = "http://wwwublefuck.top/";
 
     //三种操作
     public static final int OPERATION_CLICK_LIKE = 1;

@@ -19,7 +19,7 @@
 		</div>
 		<div class="contents">
 			<div id="login-area">
-				<form action="login.do" method="post">
+				<form action="login"" method="post">
 					<div class="error-message">${error!''}</div>
 					<div class="email">
 						邮箱&nbsp;
@@ -34,7 +34,7 @@
 				</form>
 			</div>
 			<div id="register-area">
-				<form action="register.do" method="post">
+				<form action="register"" method="post">
 					<div id="error-message" class="error-message">${error!''}</div>
 					<div class="email">
 						邮箱&nbsp;
@@ -116,10 +116,10 @@
             //alert($("#login-email").val());
             $.ajax({
                 type:"GET",
-                url:"forgetPassword.do",
+                url:"forgetPassword",
                 data:{email:$("#login-email").val()},
                 success:function(response,status,xhr){
-                    location.href="afterForgetPassword.do";
+                    location.href="afterForgetPassword";
                 }
             });
         });

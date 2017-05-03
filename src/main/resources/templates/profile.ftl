@@ -28,10 +28,10 @@
 			<div class="user-button">
 				<c:choose>
                     <c:when test="${following==true}">
-                        <a href="unfollow.do?uid=${user.uid}" class="button-unfollow">取消关注</a>
+                        <a href="unfollow"?uid=${user.uid}" class="button-unfollow">取消关注</a>
                     </c:when>
                     <c:otherwise>
-                        <a href="follow.do?uid=${user.uid}" class="button-follow">关注</a>
+                        <a href="follow"?uid=${user.uid}" class="button-follow">关注</a>
                     </c:otherwise>
                 </c:choose>
 
@@ -43,7 +43,7 @@
 					<c:forEach items="${postList}" var="post">
 						<li>
 							<span class="glyphicon glyphicon-file"></span>&nbsp;
-							<a href="toPost.do?pid=${post.pid}">${post.title}</a>
+							<a href="toPost"?pid=${post.pid}">${post.title}</a>
 							<span class="user-post-time">发布于 ${post.publishTime}</span>
 						</li>
 					</c:forEach>

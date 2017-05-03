@@ -32,7 +32,7 @@ public class PostController {
 
 
     //去发帖的页面
-    @RequestMapping("/toPublish.do")
+    @RequestMapping("/toPublish")
     public String toPublish(Model model){
         List<Topic> topicList = topicService.listTopic();
         model.addAttribute("topicList",topicList);
@@ -40,15 +40,15 @@ public class PostController {
     }
 
     //发帖
-    @RequestMapping("/publishPost.do")
+    @RequestMapping("/publishPost")
     public String publishPost(Post post) {
         int id = postService.publishPost(post);
-        return "redirect:toPost.do?pid="+id;
+        return "redirect:toPost?pid="+id;
     }
 
 
     //按时间，倒序，列出帖子
-    @RequestMapping("/listPostByTime.do")
+    @RequestMapping("/listPostByTime")
     public String listPostByTime(int curPage,Model model){
         PageBean<Post> pageBean = postService.listPostByTime(curPage);
         List<User> userList = userService.listUserByTime();
@@ -60,7 +60,7 @@ public class PostController {
     }
 
     //去帖子详情页面
-    @RequestMapping("/toPost.do")
+    @RequestMapping("/toPost")
     public String toPost(int pid, Model model, HttpSession session){
         Integer sessionUid = (Integer) session.getAttribute("uid");
         //获取帖子信息
@@ -82,7 +82,7 @@ public class PostController {
     }
 
     //异步点赞
-    @RequestMapping(value = "/ajaxClickLike.do",produces = "text/plain;charset=UTF-8")
+    @RequestMapping(value = "/ajaxClickLike",produces = "text/plain;charset=UTF-8")
     public @ResponseBody
     String ajaxClickLike(int pid, HttpSession session){
         int sessionUid = (int) session.getAttribute("uid");

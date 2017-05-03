@@ -24,7 +24,7 @@
 					<span class="glyphicon glyphicon-th"></span>&nbsp;${post.title}
 				</div>
 				<div class="post-user clearfix">
-					<div class="user-image"><a href="toProfile.do?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a></div>
+					<div class="user-image"><a href="toProfile"?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a></div>
 					<div class="user-info">
 						<div class="user-name">${post.user.username}</div>
 						<div class="post-time">编辑于 ${post.publishTime}</div>
@@ -65,7 +65,7 @@
                     <#list replyList as reply>
                     <#--<c:forEach items="${replyList}" var="reply" varStatus="status">-->
                         <div class="post-reply-item clearfix">
-                            <div class="item-image"><a href="toProfile.do?uid=${reply.user.uid}"><img src="${reply.user.headUrl}"></a></div>
+                            <div class="item-image"><a href="toProfile"?uid=${reply.user.uid}"><img src="${reply.user.headUrl}"></a></div>
                             <div class="item-info">
                                 <div class="item-user-name"><a href="#">${reply.user.username}</a></div>
                                 <div class="item-content">${reply.content}</div>
@@ -78,7 +78,7 @@
                                         <%--一个wrap开始--%>
                                         <div class="item-wrap">
                                             <div class="item-more-1">
-                                                <a href="toProfile.do?uid=${comment.user.uid}" class="item-more-user">${comment.user.username}</a>
+                                                <a href="toProfile"?uid=${comment.user.uid}" class="item-more-user">${comment.user.username}</a>
                                                 <span>：</span>
                                                 <span class="item-more-content">${comment.content}</span>
                                             </div>
@@ -93,7 +93,7 @@
 
                                     <!-- 楼中楼的回复框 -->
                                     <div class="reply-input">
-                                        <form action="comment.do" method="post">
+                                        <form action="comment"" method="post">
                                             <input type="hidden" name="pid" value="${post.pid}"/>
                                             <input type="hidden" name="rid" value="${reply.rid}"/>
                                             <textarea id="s${reply?counter}" name="content"></textarea>
@@ -118,7 +118,7 @@
 			<!-- 回复区，付文本编辑器板块 -->
 			<div id="reply-area" class="post-reply-textarea">
 				<div style="width: 650px;margin: 10px 20px">
-					<form action="reply.do" method="post" enctype="multipart/form-data">
+					<form action="reply"" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="pid" value="${post.pid}" />
 						<textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
 						<button class="reply-button">回帖</button>
@@ -163,7 +163,7 @@
      ];
      
      //配置处理图片上传的路径，最好用相对路径
-     editor.config.uploadImgUrl = 'upload.do';
+     editor.config.uploadImgUrl = 'upload"';
      //配置图片上传到后台的参数名称
      editor.config.uploadImgFileName = 'myFileName';
 
@@ -175,7 +175,7 @@
     likeButton.click(function(){
         $.ajax({
             type:"GET",
-            url:"ajaxClickLike.do",
+            url:"ajaxClickLike"",
             data:{pid:${post.pid}},
             success:function(response,status,xhr){
                 likeButton.text("赞 "+response);

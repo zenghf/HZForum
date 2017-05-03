@@ -35,13 +35,13 @@ public class MailTask implements Runnable {
                 sb.append("<html><head></head><body>");
 
                 if(operation==1){
-                    sb.append("<a href="+MyConstant.DOMAIN_NAME+"activate.do?code=");
+                    sb.append("<a href="+MyConstant.DOMAIN_NAME+"activate?code=");
                     sb.append(code);
                     sb.append(">点击激活</a></body>");
                 }else{
                     sb.append("是否将您的密码修改为:");
                     sb.append(code.substring(0,8));
-                    sb.append("，<a href="+MyConstant.DOMAIN_NAME+"verify.do?code="+code+">");
+                    sb.append("，<a href="+MyConstant.DOMAIN_NAME+"verify?code="+code+">");
                     sb.append("点击是</a></body>");
                 }
 

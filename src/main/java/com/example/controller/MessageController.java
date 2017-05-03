@@ -21,7 +21,7 @@ public class MessageController {
     private MessageService messageService;
 
     //去消息页面
-    @RequestMapping("/toMessage.do")
+    @RequestMapping("/toMessage")
     public String toMessage(Model model, HttpSession session) {
         Integer sessionUid = (Integer) session.getAttribute("uid");
         Map<String,List<Message>> map = messageService.listMessageByUid(sessionUid);

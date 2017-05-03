@@ -41,7 +41,7 @@ public class IndexController {
      * @param request
      * @return
      */
-    @RequestMapping("/toIndex.do")
+    @RequestMapping("/toIndex")
     public String toIndex(Model model, HttpSession session, HttpServletRequest request){
         System.out.println(request.getRemoteAddr());
         //记录访问信息
@@ -63,7 +63,7 @@ public class IndexController {
 
 
     //上传图片
-    @RequestMapping(value = "/upload.do", method = {RequestMethod.POST}, produces = "text/plain;charset=UTF-8")
+    @RequestMapping(value = "/upload", method = {RequestMethod.POST}, produces = "text/plain;charset=UTF-8")
     public
     @ResponseBody
     String upload(MultipartFile myFileName) throws IOException {

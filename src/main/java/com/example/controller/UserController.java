@@ -38,7 +38,7 @@ public class UserController {
      * @param model
      * @return
      */
-    @RequestMapping("/toMyProfile.do")
+    @RequestMapping("/toMyProfile")
     public String toMyProfile(HttpSession session, Model model) {
         int sessionUid = (int) session.getAttribute("uid");
         User user = userService.getProfile(sessionUid, sessionUid);
@@ -55,12 +55,12 @@ public class UserController {
      * @param model
      * @return
      */
-    @RequestMapping("/toProfile.do")
+    @RequestMapping("/toProfile")
     public String toProfile(int uid, Model model, HttpSession session) {
         //如果是自己的页面，直接跳转到本人个人主页
         Integer sessionUid = (Integer) session.getAttribute("uid");
         if(sessionUid != null && sessionUid.equals(uid)){
-            return "redirect:toMyProfile.do";
+            return "redirect:toMyProfile";
         }
         //判断是否关注当前用户
         boolean following = userService.getFollowStatus(sessionUid,uid);
@@ -82,7 +82,7 @@ public class UserController {
      * @param model
      * @return
      */
-    @RequestMapping("/toEditProfile.do")
+    @RequestMapping("/toEditProfile")
     public String toEditProfile(HttpSession session, Model model){
         int uid = (int) session.getAttribute("uid");
         User user = userService.getEditInfo(uid);
@@ -95,20 +95,20 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping("/editProfile.do")
+    @RequestMapping("/editProfile")
     public String editProfile(User user){
         System.out.println(user);
         userService.updateUser(user);
-        return "redirect:toMyProfile.do";
+        return "redirect:toMyProfile";
     }
 
 
-    @RequestMapping("/updatePassword.do")
+    @RequestMapping("/updatePassword")
     public String updatePassword(String password, String newpassword, String repassword, HttpSession session, Model model){
         int sessionUid = (int) session.getAttribute("uid");
         String status = userService.updatePassword(password,newpassword,repassword,sessionUid);
         if(status.equals("ok")){
-            return "redirect:logout.do";
+            return "redirect:logout";
         }else {
             model.addAttribute("passwordError",status);
             return "editProfile";
@@ -117,7 +117,7 @@ public class UserController {
 
 
 
-    @RequestMapping("/forgetPassword.do")
+    @RequestMapping("/forgetPassword")
     public @ResponseBody
     String forgetPassword(String email){
         userService.forgetPassword(email);
@@ -125,13 +125,13 @@ public class UserController {
     }
 
 
-    @RequestMapping("/afterForgetPassword.do")
+    @RequestMapping("/afterForgetPassword")
     public String afterForgetPassword(){
         return "prompt/afterForgetPassword";
     }
 
 
-    @RequestMapping("/updateHeadUrl.do")
+    @RequestMapping("/updateHeadUrl")
     public String updateHeadUrl(MultipartFile myFileName, Model model, HttpSession session) throws IOException {
         // 文件类型限制
         String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
@@ -157,28 +157,28 @@ public class UserController {
         int uid = (int) session.getAttribute("uid");
         userService.updateHeadUrl(uid,MyConstant.QINIU_IMAGE_URL + remoteFileName);
 
-        return "redirect:toMyProfile.do";
+        return "redirect:toMyProfile";
     }
 
-    @RequestMapping("/follow.do")
+    @RequestMapping("/follow")
     public String follow(int uid,HttpSession session){
         int sessionUid = (int) session.getAttribute("uid");
         userService.follow(sessionUid,uid);
-        return "forward:toProfile.do";
+        return "forward:toProfile";
     }
 
-    @RequestMapping("/unfollow.do")
+    @RequestMapping("/unfollow")
     public String unfollow(int uid,HttpSession session){
         int sessionUid = (int) session.getAttribute("uid");
         userService.unfollow(sessionUid,uid);
-        return "forward:toProfile.do";
+        return "forward:toProfile";
     }
 
 
-    @RequestMapping("/verify.do")
+    @RequestMapping("/verify")
     public String verify(String code){
         userService.verifyForgetPassword(code);
-        return "redirect:toLogin.do";
+        return "redirect:toLogin";
     }
 }
 

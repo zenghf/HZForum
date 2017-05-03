@@ -21,14 +21,14 @@ public class TopicController {
      * @param model
      * @return
      */
-    @RequestMapping("/listTopic.do")
+    @RequestMapping("/listTopic")
     public String listTopic(Model model){
         List<Topic> topicList = topicService.listTopic();
         model.addAttribute("topicList",topicList);
         return "topic";
     }
 
-    @RequestMapping("/listImage.do")
+    @RequestMapping("/listImage")
     public String listImage(Model model){
         List<String> imageList = topicService.listImage();
         model.addAttribute("imageList",imageList);

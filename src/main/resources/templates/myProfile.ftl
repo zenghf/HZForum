@@ -26,7 +26,7 @@
 			</div>
 			<div class="clearfix" style="border-bottom: 1px dashed #ddd;"></div>
 			<div class="user-button">
-                <a href="toEditProfile.do" class="button-follow">编辑信息</a>
+                <a href="toEditProfile"" class="button-follow">编辑信息</a>
 			</div>
 
 			<div class="user-post">
@@ -36,7 +36,7 @@
 					<#--<c:forEach items="${postList}" var="post">-->
                         <li>
                             <span class="glyphicon glyphicon-file"></span>&nbsp;
-                            <a href="toPost.do?pid=${post.pid}">${post.title}</a>
+                            <a href="toPost"?pid=${post.pid}">${post.title}</a>
                             <span class="user-post-time">发布于 ${post.publishTime}</span>
                         </li>
                     <#--</c:forEach>-->

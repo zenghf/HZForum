@@ -27,7 +27,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
         Integer uid =  (Integer)request.getSession().getAttribute("uid");
         if(uid == null){
-            request.getRequestDispatcher("/toLogin.do").forward(request, response);
+            request.getRequestDispatcher("/toLogin").forward(request, response);
             return false;
         }else{
             return true;

@@ -24,7 +24,7 @@ public class LoginController {
      * 去注册和登录的页面
      * @return
      */
-    @RequestMapping("/toLogin.do")
+    @RequestMapping("/toLogin")
     public String toLogin(){
         return "login";
     }
@@ -36,7 +36,7 @@ public class LoginController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/register.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
     public String register(User user, String repassword, Model model){
         String result = loginService.register(user,repassword);
         if(result.equals("ok")){
@@ -58,13 +58,13 @@ public class LoginController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "/login.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String login(User user, Model model, HttpSession session){
         Map<String,Object> map = loginService.login(user);
         if(map.get("status").equals("yes")){
             session.setAttribute("uid",map.get("uid"));
             session.setAttribute("headUrl",map.get("headUrl"));
-            return "redirect:toMyProfile.do";
+            return "redirect:toMyProfile";
         }else {
             model.addAttribute("email",user.getEmail());
             model.addAttribute("error",map.get("error"));
@@ -79,7 +79,7 @@ public class LoginController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/activate.do")
+    @RequestMapping(value = "/activate")
     public String activate(String code,Model model){
         loginService.activate(code);
 
@@ -93,10 +93,10 @@ public class LoginController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "/logout.do",method = RequestMethod.GET)
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public String logout(HttpSession session) {
         session.removeAttribute("uid");
-        return "redirect:toIndex.do";
+        return "redirect:toIndex";
     }
 }
 

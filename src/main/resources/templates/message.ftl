@@ -21,7 +21,7 @@
                 <ul class="m-list">
                     <#list map[key] as m>
                     <#--<c:forEach items="${map[key]}" var="m">-->
-                        <li><a href="toProfile.do?uid=${m.otherId}"><span>${m.otherUsername}</span></a>${m.operation}<a href="toPost.do?pid=${m.postId}"><span>${m.displayedContent}</span></a></li>
+                        <li><a href="toProfile"?uid=${m.otherId}"><span>${m.otherUsername}</span></a>${m.operation}<a href="toPost"?pid=${m.postId}"><span>${m.displayedContent}</span></a></li>
                     <#--</c:forEach>-->
                     </#list>
                 </ul>
