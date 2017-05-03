@@ -13,9 +13,9 @@
 	<div class="main w clearfix">
 		<div class="main-left">
 			<div class="share">
-				<div class="share-left"><span class="glyphicon glyphicon-th-large"></span>&nbsp;话题广场</div>
+				<div class="share-left"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Topic Plaza</div>
 				<div class="share-right">
-					<a href="#" id="open-mask"><span class="glyphicon glyphicon-pencil"></span>&nbsp;申请添加话题</a>
+					<a href="#" id="open-mask"><span class="glyphicon glyphicon-pencil"></span>&nbsp;New Topic</a>
 				</div>
 			</div>
 			<div class="topic-root">
@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<div class="topic-more">
-				<a href="#">更多</a>
+				<a href="#">More</a>
 			</div>
 		</div>
 		<#include "right_side.ftl">
@@ -61,8 +61,8 @@
 	<div class="mask"></div>
 	<div class="upon-mask">
 		<form>
-			<input type="text" name="" placeholder="请输入话题名称">
-			<button>提交申请</button>
+			<input type="text" name="" placeholder="Please input a topic">
+			<button>Submit</button>
 		</form>
 		<span id="close-mask">×</span>
 	</div>

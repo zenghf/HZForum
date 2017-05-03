@@ -1,6 +1,6 @@
 <div class="main-right">
     <div class="hot-user">
-        <div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;推荐网站</div></div>
+        <div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;Related Websites</div></div>
         <ul class="hot-user-list">
             <li class="clearfix">
                 <a href="http://toutiao.io/" class="hot-user-image"><img src="http://tva2.sinaimg.cn/crop.0.0.1022.1022.180/005Fj2RDgw1ex5pinpg65j30sg0sgdg9.jpg"></a>

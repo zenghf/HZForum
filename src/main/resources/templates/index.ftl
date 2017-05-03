@@ -12,17 +12,17 @@
 	<div class="main w clearfix">
 		<div class="main-left">
 			<div class="share">
-				<div class="share-left"><span></span>&nbsp;分享与提问</div>
+				<div class="share-left"><span></span>&nbsp;All Topics</div>
 				<div class="share-right">
-					<a href="toPublish""><span class="glyphicon glyphicon-pencil"></span>&nbsp;我要发布</a>
+					<a href="toPublish""><span class="glyphicon glyphicon-pencil"></span>&nbsp;Post</a>
 				</div>
 			</div>
 			<div class="post">
 				<div class="post-wrap">
 					<div class="post-choice">
-						<a href="#" class="post-choice-current">最近</a>
-						<a href="#">最热</a>
-						<a href="#" class="post-choice-last">精华</a>
+						<a href="#" class="post-choice-current">Recent</a>
+						<a href="#">Hottest</a>
+						<a href="#" class="post-choice-last">Starred</a>
 					</div>
 
 					<ul class="post-list">
@@ -36,15 +36,15 @@
                                     <div class="post-other">
                                         <div class="post-other-left">
                                             <span class="post-username"><a href="toProfile"?uid=${post.user.uid}">${post.user.username}</a></span>
-                                            <span>&nbsp;发表</span>
+                                            <span>&nbsp;Publish</span>
                                             <span class="post-time">&nbsp;${post.publishTime}</span>
-                                            <span>&nbsp;最后回复&nbsp;</span>
+                                            <span>&nbsp;Last Reply&nbsp;</span>
                                             <span class="post-reply-time">${post.replyTime}</span>
                                         </div>
                                         <div class="post-other-right">
-                                            <span class="post-reply-count">回复 ${post.replyCount}</span>&nbsp;
-                                            <span class="post-like-count">赞 ${post.likeCount}</span>&nbsp;
-                                            <span class="post-scan-count">浏览 ${post.scanCount}</span>
+                                            <span class="post-reply-count">Reply ${post.replyCount}</span>&nbsp;
+                                            <span class="post-like-count">Like ${post.likeCount}</span>&nbsp;
+                                            <span class="post-scan-count">View ${post.scanCount}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                     <nav class="col-md-10 col-md-offset-2">
                         <ul class="pagination pagination-sm">
                             <#--First Page-->
-                            <li><a href="listPostByTime"?curPage=1">首页</a></li>
+                            <li><a href="listPostByTime"?curPage=1">First</a></li>
                             <#--Previous Page-->
                             <#if pageBean.curPage!=1>
                                 <li><a href="listPostByTime"?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a></li>
@@ -92,7 +92,7 @@
                             </#if>
 
                             <#--Last Page    -->
-                            <li><a href="listPostByTime"?curPage=${pageBean.allPage}">尾页</a></li>
+                            <li><a href="listPostByTime"?curPage=${pageBean.allPage}">Last</a></li>
                         </ul>
                     </nav>
 
@@ -103,7 +103,7 @@
 
 
         <div class="hot-user">
-            <div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;近期活跃用户</div></div>
+            <div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;Active Users</div></div>
             <ul class="hot-user-list">
                 <#list hotUserList as user>
                     <li class="clearfix">
@@ -115,7 +115,7 @@
         </div>
 
         <div class="hot-user">
-            <div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;近期加入用户</div></div>
+            <div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;New Users</div></div>
             <ul class="hot-user-list">
                 <#list userList as user>
                     <li class="clearfix">

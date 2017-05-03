@@ -13,7 +13,7 @@
 
 	<!-- 中间主体板块 -->
 	<div class="main w clearfix" style="margin-bottom: 360px">
-		<div class="message-header"><span></span>&nbsp;消息列表</div>
+		<div class="message-header"><span></span>&nbsp;List of Messages</div>
         <#list map?keys as key>
         <#--<c:forEach items="${map}" var="item">-->
             <div class="m-wrap">
