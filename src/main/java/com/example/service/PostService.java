@@ -49,8 +49,8 @@ public class PostService {
     public int publishPost(Post post) {
 
         //构造帖子
-        post.setPublishTime(MyUtil.formatDate(new Date()));
-        post.setReplyTime(MyUtil.formatDate(new Date()));
+//        post.setPublishTime(MyUtil.formatDate(new Date()));
+//        post.setReplyTime(MyUtil.formatDate(new Date()));
         post.setReplyCount(0);
         post.setLikeCount(0);
         post.setScanCount(0);

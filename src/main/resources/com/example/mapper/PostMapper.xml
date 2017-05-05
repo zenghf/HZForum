@@ -33,7 +33,7 @@
     </resultMap>
 
 
-    <select id="listPostByUid" resultType="com.example.model.Post">
+    <select id="listPostByUid" resultType="com.example.model.Post" resultMap="postMap">
         select uid,pid,title,publish_time from post where uid=#{uid}
     </select>
 
@@ -42,7 +42,7 @@
             select last_insert_id() as pid
         </selectKey>
         insert into post(title,content,publish_time,reply_time,reply_count,like_count,scan_count,uid,tid)
-        values(#{title},#{content},#{publishTime},#{replyTime},#{replyCount},#{likeCount},#{scanCount},#{user.uid},#{topic.tid})
+        values(#{title},#{content},date_format(now(),'%Y-%c-%d %H:%i:%s'),date_format(now(),'%Y-%c-%d %H:%i:%s'),#{replyCount},#{likeCount},#{scanCount},#{user.uid},#{topic.tid})
     </insert>
 
     <select id="listPostByTime" resultMap="postMap">

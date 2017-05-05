@@ -37,7 +37,7 @@
                         <li>
                             <span class="glyphicon glyphicon-file"></span>&nbsp;
                             <a href="toPost?pid=${post.pid}">${post.title}</a>
-                            <span class="user-post-time">发布于 ${post.publishTime}</span>
+                            <span class="user-post-time">published ${post.publishTime!''}</span>
                         </li>
                     <#--</c:forEach>-->
 					</#list>
