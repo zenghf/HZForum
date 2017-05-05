@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -40,7 +41,7 @@ public class PostController {
     }
 
     //发帖
-    @RequestMapping("/publishPost")
+    @RequestMapping(value = "/publishPost", method = RequestMethod.POST)
     public String publishPost(Post post) {
         int id = postService.publishPost(post);
         return "redirect:toPost?pid="+id;

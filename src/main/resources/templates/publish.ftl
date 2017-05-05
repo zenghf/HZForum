@@ -1,94 +1,105 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" import="java.util.*" %>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/wangEditor.css">
 	<link rel="stylesheet" type="text/css" href="css/base.css">
-	<link rel="stylesheet" type="text/css" href="css/publis
-	h.css">
+	<link rel="stylesheet" type="text/css" href="css/publish.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/monokai-sublime.min.css" />
+    <link rel="stylesheet" href="css/quill.snow.css" />
+    <style>
+        body > #standalone-container {
+            margin: 50px auto;
+            width: 720px;
+        }
+        #editor-container {
+            height: 350px;
+        }
+    </style>
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<#include "header.ftl">
 
 
 	<!-- 中间主体板块 -->
 	<div class="main w clearfix">
-		<form action="publishPost"" method="post">
+		<form action="publishPost"" method="post" onsubmit="return validateForm(this)">
             <input type="hidden" name="topic.tid" value="1" id="tid">
-            <input type="hidden" name="user.uid" value="${sessionScope.uid}">
+            <input type="hidden" name="user.uid" value="${Session.uid}">
 
-			<div class="pub-header"><span></span>&nbsp;话题发布</div>
+			<div class="pub-header"><span></span>New Post</div>
 			<div class="pub-title">
-				<input type="text" name="title" placeholder="标题：一句话说明你遇到的问题或想分享的经验">
+				<input type="text" name="title" placeholder="Title">
 			</div>
 			<div class="pub-topic">
-				<span>标签：</span>
+				<span>Tags：</span>
 				<div class="topic-list">
-					<c:forEach items="${topicList}" var="topic">
+                    <#list topicList as topic>
                         <a class="topics" href="#" title="${topic.tid}">${topic.name}</a>
-                    </c:forEach>
+                    </#list>
 				</div>
 			</div>
 
-			<div class="pub-textarea">
-				<div style="width: 920px;">
-					<textarea name="content" id="textarea" style="height: 300px;max-height: 1000px;"></textarea>
-				</div>
-                <button class="pub-button">发布</button>
-			</div>
+			<#--<div class="pub-textarea">-->
+				<#--<div style="width: 920px;">-->
+					<#--<textarea name="content" id="textarea" style="height: 300px;max-height: 1000px;"></textarea>-->
+				<#--</div>-->
+                <#--<button class="pub-button">发布</button>-->
+			<#--</div>-->
+
+            <div id="standalone-container" class="post-reply-textarea pub-textarea">
+                <#include "tool.ftl">
+                <div id="editor-container" name="content"></div>
+                <button class="pub-button">Publish</button>
+            </div>
+
 		</form>
 
 	</div><!-- 主体结束 -->
 
-<%@ include file="footer.jsp" %>
+<#include "footer.ftl">
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="js/wangEditor.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+<script type="text/javascript" src="js/quill.min.js"></script>
 <script type="text/javascript">
-    $(function(){
-        var editor = new wangEditor('textarea');
 
-        editor.config.menus = [
-            'source',
-            '|',
-            'bold',
-            'underline',
-            'italic',
-            'strikethrough',
-            'eraser',
-            'fontsize',
-            '|',
-            'link',
-            'table',
-            'emotion',
-            '|',
-            'img',
-            'insertcode',
-            '|',
-            'undo',
-        ];
-
-        //配置处理图片上传的路径，最好用相对路径
-        editor.config.uploadImgUrl = 'upload"';
-        //配置图片上传到后台的参数名称
-        editor.config.uploadImgFileName = 'myFileName';
-        editor.create();
-
-        //一次只能选中一个话题
-        var topics = $(".topics");
-        var tid = $("#tid");
-        topics.click(function(){
-            for(var i=0;i<topics.length;i++){
-                $(topics[i]).css("background-color","#fff");
-            }
-            $(this).css("background-color","#1abc9c");
-            tid.val(this.title);
-        });
-
+    var topics = $(".topics");
+    var tid = $("#tid");
+    topics.click(function(){
+        for(var i=0;i<topics.length;i++){
+            $(topics[i]).css("background-color","#fff");
+        }
+        $(this).css("background-color","#1abc9c");
+        tid.val(this.title);
     });
+
+    var quill = new Quill('#editor-container', {
+        modules: {
+            formula: true,
+            syntax: true,
+            toolbar: '#toolbar-container'
+        },
+        placeholder: 'Compose an epic...',
+        theme: 'snow'
+    });
+
+    function validateForm(form) {
+        var content = $("#editor-container .ql-editor").html();
+        if (!content || 0 === content.length){
+            alert("Reply can not be empty!")
+            return false;
+        }
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'content';
+        input.value = content;
+        form.appendChild(input);
+    }
+
     
 </script>
 </body>
