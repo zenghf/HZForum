@@ -3,9 +3,20 @@
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="css/wangEditor.css">
 	<link rel="stylesheet" type="text/css" href="css/base.css">
 	<link rel="stylesheet" type="text/css" href="css/post.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/monokai-sublime.min.css" />
+    <link rel="stylesheet" href="css/quill.snow.css" />
+    <style>
+        body > #standalone-container {
+            margin: 50px auto;
+            width: 720px;
+        }
+        #editor-container {
+            height: 350px;
+        }
+    </style>
 </head>
 <body>
 
@@ -68,7 +79,7 @@
                             <div class="item-image"><a href="toProfile?uid=${reply.user.uid}"><img src="${reply.user.headUrl}"></a></div>
                             <div class="item-info">
                                 <div class="item-user-name"><a href="#">${reply.user.username}</a></div>
-                                <div class="item-content">${reply.content}</div>
+                                <div class="item-content">${reply.content!''}</div>
                                 <div class="item-date">published ${reply.replyTime!''}</div>
 
                                 <!-- 楼中楼，即嵌套的回复内容 -->
@@ -116,19 +127,71 @@
 
 
 			<!-- 回复区，付文本编辑器板块 -->
-			<div id="reply-area" class="post-reply-textarea">
-				<div style="width: 650px;margin: 10px 20px">
-					<form action="reply"" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="pid" value="${post.pid}" />
-						<textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
-						<button class="reply-button">Reply</button>
-					</form>
-				</div>
-			</div>
+			<#--<div id="reply-area" class="post-reply-textarea">-->
+				<#--<div style="width: 650px;margin: 10px 20px">-->
+					<#--<form action="reply"" method="post" enctype="multipart/form-data">-->
+						<#--<input type="hidden" name="pid" value="${post.pid}" />-->
+						<#--<textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>-->
+						<#--<button class="reply-button">Reply</button>-->
+					<#--</form>-->
+				<#--</div>-->
+			<#--</div>-->
+
+            <div id="standalone-container" class="post-reply-textarea">
+                <form action="reply"" method="post" onsubmit="return validateForm(this)" enctype="multipart/form-data">
+                <input type="hidden" name="pid" value="${post.pid}" />
+                <div id="toolbar-container">
+                <span class="ql-formats">
+                  <select class="ql-font"></select>
+                  <select class="ql-size"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-bold"></button>
+                  <button class="ql-italic"></button>
+                  <button class="ql-underline"></button>
+                  <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                  <select class="ql-color"></select>
+                  <select class="ql-background"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-script" value="sub"></button>
+                  <button class="ql-script" value="super"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-header" value="1"></button>
+                  <button class="ql-header" value="2"></button>
+                  <button class="ql-blockquote"></button>
+                  <button class="ql-code-block"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-list" value="ordered"></button>
+                  <button class="ql-list" value="bullet"></button>
+                  <button class="ql-indent" value="-1"></button>
+                  <button class="ql-indent" value="+1"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-direction" value="rtl"></button>
+                  <select class="ql-align"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-link"></button>
+                  <button class="ql-image"></button>
+                  <button class="ql-video"></button>
+                  <button class="ql-formula"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-clean"></button>
+                </span>
+                </div>
+                <div id="editor-container" name="content"></div>
+                <#--<textarea id="editor-container" name="content"></textarea>-->
+                <button class="reply-button">Reply</button>
+                </form>
+            </div>
 
 		</div>
-        TESTTEST
-        ${Session.uid!'uid not exist'}
 
 		<#include "right_side.ftl">
 
@@ -138,38 +201,35 @@
 <#--<%@ include file="footer.jsp" %>-->
 <#include "footer.ftl">
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="js/wangEditor.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="js/quill.min.js"></script>
 <script type="text/javascript">
-    var editor = new wangEditor('textarea');
+    var quill = new Quill('#editor-container', {
+        modules: {
+            formula: true,
+            syntax: true,
+            toolbar: '#toolbar-container'
+        },
+        placeholder: 'Compose an epic...',
+        theme: 'snow'
+    });
 
-    editor.config.menus = [
-        'source',
-        '|',
-        'bold',
-        'underline',
-        'italic',
-        'strikethrough',
-        'eraser',
-        'fontsize',
-        '|',
-        'link',
-        'table',
-        'emotion',
-        '|',
-        'img',
-        'insertcode',
-        '|',
-        'undo',
-     ];
-     
-     //配置处理图片上传的路径，最好用相对路径
-     editor.config.uploadImgUrl = 'upload"';
-     //配置图片上传到后台的参数名称
-     editor.config.uploadImgFileName = 'myFileName';
-
-		
-    editor.create();
+    function validateForm(form) {
+        var content = $("#editor-container .ql-editor").html();
+        if (!content || 0 === content.length){
+            alert("Reply can not be empty!")
+            return false;
+        }
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'content';
+        input.value = content;
+        form.appendChild(input);
+    }
 
     //点赞按钮处理
     var likeButton = $("#like-button");
