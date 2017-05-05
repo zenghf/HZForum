@@ -11,24 +11,23 @@
 <#include "header.ftl">
 
 
-	<!-- 中间主体板块 -->
 	<div class="main w clearfix" style="margin-bottom: 360px">
 		<div class="message-header"><span></span>&nbsp;List of Messages</div>
         <#list map?keys as key>
-        <#--<c:forEach items="${map}" var="item">-->
             <div class="m-wrap">
                 <div class="m-date">${key}</div>
                 <ul class="m-list">
                     <#list map[key] as m>
-                    <#--<c:forEach items="${map[key]}" var="m">-->
-                        <li><a href="toProfile"?uid=${m.otherId}"><span>${m.otherUsername}</span></a>${m.operation}<a href="toPost"?pid=${m.postId}"><span>${m.displayedContent}</span></a></li>
-                    <#--</c:forEach>-->
+                        <li>
+                            <a href="toProfile?uid=${m.otherId}">
+                                <span>${m.otherUsername}</span></a>${m.operation}<a href="toPost?pid=${m.postId}"><span>${m.displayedContent}</span>
+                            </a>
+                        </li>
                     </#list>
                 </ul>
             </div>
-        <#--</c:forEach>-->
         </#list>
-	</div><!-- 主体结束 -->
+	</div>
 
 
 <#include "footer.ftl">

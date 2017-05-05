@@ -56,7 +56,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/toProfile")
-    public String toProfile(int uid, Model model, HttpSession session) {
+    public String toProfile(Integer uid, Model model, HttpSession session) {
         //如果是自己的页面，直接跳转到本人个人主页
         Integer sessionUid = (Integer) session.getAttribute("uid");
         if(sessionUid != null && sessionUid.equals(uid)){

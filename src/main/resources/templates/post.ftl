@@ -24,25 +24,25 @@
 					<span class="glyphicon glyphicon-th"></span>&nbsp;${post.title}
 				</div>
 				<div class="post-user clearfix">
-					<div class="user-image"><a href="toProfile"?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a></div>
+					<div class="user-image"><a href="toProfile?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a></div>
 					<div class="user-info">
 						<div class="user-name">${post.user.username}</div>
-						<div class="post-time">编辑于 ${post.publishTime}</div>
+						<div class="post-time">Published ${post.publishTime}</div>
 					</div>
 					<div class="other-count">
-						<span class="reply-count"><a href="#">回复 ${post.replyCount}</a></span>&nbsp;
+						<span class="reply-count"><a href="javascript:void(0);">Reply ${post.replyCount}</a></span>&nbsp;
 
-                        <#if !Session.uid?exists>
-                            <span class="up-count"><a>赞 ${post.likeCount}</a></span>&nbsp;
-                        </#if>
                         <#if liked>
-                            <span class="up-count"><a style="color:#2e6da4;">已赞 ${post.likeCount}</a></span>&nbsp;
-                        </#if>
-                        <#if Session.uid?exists>
-                            <span class="up-count"><a href="#" id="like-button">赞 ${post.likeCount}</a></span>&nbsp;
+                            <span class="up-count"><a href="javascript:void(0);" style="color:#2e6da4;">Like ${post.likeCount}</a></span>&nbsp;
+                        <#else>
+                            <#if Session.uid?exists>
+                                <span class="up-count"><a href="javascript:void(0);" id="like-button" style="color:#2eb944;">Like ${post.likeCount}</a></span>&nbsp;
+                            <#else>
+                                <span class="up-count"><a href="javascript:void(0);">Like ${post.likeCount}</a></span>&nbsp;
+                            </#if>
                         </#if>
 
-						<span class="scan-count"><a href="#">浏览 ${post.scanCount}</a></span>
+						<span class="scan-count"><a href="#">View ${post.scanCount}</a></span>
 					</div>
 				</div>
 				<div class="post-desc">
@@ -56,8 +56,8 @@
 			<div class="post-reply">
 				<!-- 回复区标题 -->
 				<div class="post-reply-title">
-					<h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;${post.replyCount}条回帖</h2>
-					<a href="#reply-area">回复</a>
+					<h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;${post.replyCount} Replies</h2>
+					<a href="#reply-area">Reply</a>
 				</div>
 				<!-- 回复区内容 -->
 				<div class="post-reply-content">
@@ -65,27 +65,27 @@
                     <#list replyList as reply>
                     <#--<c:forEach items="${replyList}" var="reply" varStatus="status">-->
                         <div class="post-reply-item clearfix">
-                            <div class="item-image"><a href="toProfile"?uid=${reply.user.uid}"><img src="${reply.user.headUrl}"></a></div>
+                            <div class="item-image"><a href="toProfile?uid=${reply.user.uid}"><img src="${reply.user.headUrl}"></a></div>
                             <div class="item-info">
                                 <div class="item-user-name"><a href="#">${reply.user.username}</a></div>
                                 <div class="item-content">${reply.content}</div>
-                                <div class="item-date">发表于 ${reply.replyTime}</div>
+                                <div class="item-date">published ${reply.replyTime!''}</div>
 
                                 <!-- 楼中楼，即嵌套的回复内容 -->
                                 <div class="item-more">
                                     <#list reply.commentList as comment>
                                     <#--<c:forEach items="${reply.commentList}" var="comment">-->
-                                        <%--一个wrap开始--%>
+                                        <#--<%--一个wrap开始--%>-->
                                         <div class="item-wrap">
                                             <div class="item-more-1">
-                                                <a href="toProfile"?uid=${comment.user.uid}" class="item-more-user">${comment.user.username}</a>
+                                                <a href="toProfile?uid=${comment.user.uid}" class="item-more-user">${comment.user.username}</a>
                                                 <span>：</span>
                                                 <span class="item-more-content">${comment.content}</span>
                                             </div>
 
-                                            <div class="item-more-date">${comment.commentTime}</div>
+                                            <div class="item-more-date">${comment.commentTime!''}</div>
                                             <div class="item-more-other">
-                                                <a href="#s${reply?counter}" class="item-more-reply">回复</a>&nbsp;
+                                                <a href="#s${reply?counter}" class="item-more-reply">Comment</a>&nbsp;
                                             </div>
                                         </div><!-- 一个wrap结束-->
                                     <#--</c:forEach>-->
@@ -97,14 +97,14 @@
                                             <input type="hidden" name="pid" value="${post.pid}"/>
                                             <input type="hidden" name="rid" value="${reply.rid}"/>
                                             <textarea id="s${reply?counter}" name="content"></textarea>
-                                            <button type="submit">回复</button>
+                                            <button type="submit">Comment</button>
                                         </form>
                                     </div>
                                 </div><!-- 楼中楼结束 -->
 
                             </div>
                             <div class="item-other">
-                                <a href="#s${status.count}" class="item-reply">回复</a>&nbsp;
+                                <a href="#s${reply?counter}" class="item-reply">Comment</a>&nbsp;
                             </div>
 
                         </div>
@@ -121,13 +121,14 @@
 					<form action="reply"" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="pid" value="${post.pid}" />
 						<textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
-						<button class="reply-button">回帖</button>
+						<button class="reply-button">Reply</button>
 					</form>
 				</div>
 			</div>
 
 		</div>
-
+        TESTTEST
+        ${Session.uid!'uid not exist'}
 
 		<#include "right_side.ftl">
 
@@ -175,7 +176,7 @@
     likeButton.click(function(){
         $.ajax({
             type:"GET",
-            url:"ajaxClickLike"",
+            url:"ajaxClickLike",
             data:{pid:${post.pid}},
             success:function(response,status,xhr){
                 likeButton.text("赞 "+response);

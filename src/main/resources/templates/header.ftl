@@ -14,7 +14,7 @@
                 <li class="login2 relative">
                     <a href="toMyProfile"" id="profile"><img src="${Session.headUrl!''}"></a>
                     <ul id="down-menu">
-                        <li><a href="profile">Profile</a></li>
+                        <li><a href="toMyProfile">Profile</a></li>
                         <li><a href="logout"">Logout</a></li>
                     </ul>
                 </li>

@@ -11,6 +11,7 @@
     <resultMap type="com.example.model.Reply" id="replyMap">
         <id column="rid" property="rid"/>
         <result column="content" property="content"/>
+        <result column="reply_time" property="replyTime"/>
         <association property="user" javaType="com.example.model.User" resultMap="userMap" />
     </resultMap>
 
@@ -26,7 +27,7 @@
     </insert>
 
     <select id="listReply" resultMap="replyMap">
-        select r.rid,r.content,u.uid,u.username,u.head_url from reply r join user u on r.uid=u.uid
+        select r.rid,r.content,u.uid,u.username,u.head_url, r.reply_time from reply r join user u on r.uid=u.uid
         where pid=#{pid}
     </select>
 
