@@ -3,7 +3,6 @@
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="css/wangEditor.css">
 	<link rel="stylesheet" type="text/css" href="css/base.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
@@ -14,42 +13,51 @@
 	<!-- 中间主体板块 -->
 	<div class="main w clearfix">
 		<div class="buttons clearfix">
-			<a href="#" id="login-button" class="selected"><span class="glyphicon glyphicon-user"></span>&nbsp;登录</a>
-			<a href="#" id="register-button" class="unselected"><span class="glyphicon glyphicon-pencil"></span>&nbsp;注册</a>
+			<a href="#" id="login-button" class="selected"><span class="glyphicon glyphicon-user"></span>&nbsp;Login</a>
+			<a href="#" id="register-button" class="unselected"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Register</a>
 		</div>
 		<div class="contents">
 			<div id="login-area">
 				<form action="login"" method="post">
 					<div class="error-message">${error!''}</div>
+				<table>
+					<tr>
 					<div class="email">
-						邮箱&nbsp;
-						<input id="login-email" type="text" name="email" value="${email!''}" required>
+						<td>Email</td>
+                        <td><input id="login-email" type="text" name="email" value="${email!''}" required></td>
 					</div>
+                    </tr>
+					<tr>
 					<div class="password">
-						密码&nbsp;
-						<input type="password" name="password" required>
+						<td>Password</td>
+						<td><input type="password" name="password" required></td>
 					</div>
-					<button id="login-submit">立即登录</button>
-					<button type="button" id="forget-password">忘记密码</button>
+                    </tr>
+                </table>
+				<br/>
+					<button id="login-submit">Login</button>
+					<button type="button" id="forget-password">Forget Password</button>
 				</form>
 			</div>
 			<div id="register-area">
 				<form action="register"" method="post">
 					<div id="error-message" class="error-message">${error!''}</div>
-					<div class="email">
-						邮箱&nbsp;
-						<input type="text" name="email" value="${email!''}" id="email" required>
-					</div>
-					<div class="password">
-						密码&nbsp;
-						<input type="password" name="password" id="password" required>
-					</div>
-					<div class="password relative clearfix">
-						<span style="position: absolute;left: -30px;">重复密码&nbsp;</span>
-						<input type="password" name="repassword" id="repassword" required style="position: absolute;left: 40px;">
-					</div>
+					<table>
+					<tr><div class="email">
+						<td>Email</td>
+						<td><input type="text" name="email" value="${email!''}" id="email" required></td>
+					</div></tr>
+					<tr><div class="password">
+                        <td>Password</td>
+						<td><input type="password" name="password" id="password" required></td>
+					</div></tr>
+					<tr><div class="password">
+						<td>Password</td>
+						<td><input type="password" name="repassword" id="repassword" required ></td>
+					</div></tr>
+                    </table>
 					<div class="relative">
-						<button id="register-submit">立即注册</button>
+						<button id="register-submit">Register</button>
 					</div>
 				</form>
 			</div>
