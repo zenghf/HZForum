@@ -28,46 +28,46 @@ public class LoginService {
     @Autowired
     private TaskExecutor taskExecutor;
 
-    //注册
+    // registration
     public String register(User user,String repassword) {
 
-        //校验邮箱格式
+        // email address
         Pattern p = Pattern.compile("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$");
         Matcher m = p.matcher(user.getEmail());
         if(!m.matches()){
-            return "邮箱格式有问题啊~";
+            return "Please input a correct email address!";
         }
 
-        //校验密码长度
+        // password length
         p = Pattern.compile("^\\w{6,20}$");
         m = p.matcher(user.getPassword());
         if(!m.matches()){
-            return "密码长度要在6到20之间~";
+            return "Password length must be between 6 and 20!";
         }
 
-        //检查密码
+        // password repeat
         if(!user.getPassword().equals(repassword)){
-            return "两次密码输入不一致~";
+            return "The password you input twice must be the same!";
         }
 
-        //检查邮箱是否被注册
+        // is the email address already registered
         int emailCount = userMapper.selectEmailCount(user.getEmail());
         if(emailCount>0){
-            return "该邮箱已被注册~";
+            return "Your email address has already been registered!";
         }
 
-        //构造user，设置未激活
+        // new user
         user.setActived(0);
         String activateCode = MyUtil.createActivateCode();
         user.setActivateCode(activateCode);
         user.setJoinTime(MyUtil.formatDate(new Date()));
-        user.setUsername("DF"+new Random().nextInt(10000)+"号");
-        user.setHeadUrl(MyConstant.QINIU_IMAGE_URL +"head.jpg");
+        user.setUsername("HZ_" + new Random().nextInt(10000));
+        //TODO add head image url to settings
+        user.setHeadUrl("/image/programmer.jpg");
 
-        //发送邮件
+        //TODO send email
         taskExecutor.execute(new MailTask(activateCode,user.getEmail(),javaMailSender,1));
 
-        //向数据库插入记录
         userMapper.insertUser(user);
 
         return "ok";
@@ -75,14 +75,14 @@ public class LoginService {
 
 
 
-    //登录
+    // login
     public Map<String,Object> login(User user) {
 
         Map<String,Object> map = new HashMap<>();
         Integer uid = userMapper.selectUidByEmailAndPassword(user);
         if(uid==null){
             map.put("status","no");
-            map.put("error","用户名或密码错误~");
+            map.put("error","User name or password error!");
             return map;
         }
 
