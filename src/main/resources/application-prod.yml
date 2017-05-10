@@ -77,6 +77,13 @@ mybatis:
 pic:
     home: /Users/hzeng/temp/blog/pic
 
+qiniu:
+    imageUrl: YOUR_QINIU_IMAGE_URL
+    accessKey: YOUR_QINIU_ACCESS_KEY
+    secretKey: YOUR_QINIU_SECRET_KEY
+    bucketName: YOUR_QINIU_BUCKET_NAME
+
+
 
 
 

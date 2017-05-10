@@ -15,7 +15,4 @@ public class MyUtil {
         return new Date().getTime() + UUID.randomUUID().toString().replace("-","");
     }
 
-//    public static void main(String[] args) {
-//        System.out.println(createActivateCode().length());
-//    }
 }

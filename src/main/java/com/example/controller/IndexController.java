@@ -8,6 +8,7 @@ import com.example.service.QiniuService;
 import com.example.service.UserService;
 import com.example.util.MyConstant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,9 @@ public class IndexController {
 
     @Autowired
     private QiniuService qiniuService;
+
+    @Autowired
+    private Environment env;
 
     @RequestMapping("/toIndex")
     public String toIndex(Model model, HttpSession session, HttpServletRequest request){
@@ -75,8 +79,7 @@ public class IndexController {
 
         qiniuService.upload(myFileName.getBytes(), remoteFileName);
 
-        //
-        return MyConstant.QINIU_IMAGE_URL + remoteFileName;
+        return env.getProperty("qiniu.imageUrl") + remoteFileName;
     }
 
 }

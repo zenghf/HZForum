@@ -5,8 +5,8 @@ import com.example.model.User;
 import com.example.service.PostService;
 import com.example.service.QiniuService;
 import com.example.service.UserService;
-import com.example.util.MyConstant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +31,9 @@ public class UserController {
 
     @Autowired
     private QiniuService qiniuService;
+
+    @Autowired
+    private Environment env;
 
     @RequestMapping("/toMyProfile")
     public String toMyProfile(HttpSession session, Model model) {
@@ -126,7 +129,7 @@ public class UserController {
 
 
         int uid = (int) session.getAttribute("uid");
-        userService.updateHeadUrl(uid,MyConstant.QINIU_IMAGE_URL + remoteFileName);
+        userService.updateHeadUrl(uid,env.getProperty("qiniu.imageUrl") + remoteFileName);
 
         return "redirect:toMyProfile";
     }
