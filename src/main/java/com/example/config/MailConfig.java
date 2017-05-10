@@ -9,6 +9,7 @@ import java.util.Properties;
 /**
  * Created by hzeng on 4/19/17.
  */
+// TODO: rewrite mail config
 @Configuration
 @ConfigurationProperties("spring.mail")
 public class MailConfig {

@@ -19,23 +19,11 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-
-    /**
-     * 去注册和登录的页面
-     * @return
-     */
     @RequestMapping("/toLogin")
     public String toLogin(){
         return "login";
     }
 
-    /**
-     * 注册
-     * @param user
-     * @param repassword
-     * @param model
-     * @return
-     */
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public String register(User user, String repassword, Model model){
         String result = loginService.register(user,repassword);
@@ -50,14 +38,6 @@ public class LoginController {
         }
     }
 
-
-    /**
-     * 登录
-     * @param user
-     * @param model
-     * @param session
-     * @return
-     */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String login(User user, Model model, HttpSession session){
         Map<String,Object> map = loginService.login(user);
@@ -72,27 +52,14 @@ public class LoginController {
         }
     }
 
-
-    /**
-     * 激活
-     * @param activateCode
-     * @param model
-     * @return
-     */
     @RequestMapping(value = "/activate")
     public String activate(String code,Model model){
         loginService.activate(code);
 
-        model.addAttribute("info","您的账户已经激活成功，可以去登录啦~");
+        model.addAttribute("info","Your account is activated, you can log in now!");
         return "prompt/promptInfo";
     }
 
-
-    /**
-     * 注销
-     * @param session
-     * @return
-     */
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public String logout(HttpSession session) {
         session.removeAttribute("uid");

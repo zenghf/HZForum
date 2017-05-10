@@ -31,8 +31,6 @@ public class PostController {
     @Autowired
     private ReplyService replyService;
 
-
-    //去发帖的页面
     @RequestMapping("/toPublish")
     public String toPublish(Model model){
         List<Topic> topicList = topicService.listTopic();
@@ -40,15 +38,12 @@ public class PostController {
         return "publish";
     }
 
-    //发帖
     @RequestMapping(value = "/publishPost", method = RequestMethod.POST)
     public String publishPost(Post post) {
         int id = postService.publishPost(post);
         return "redirect:toPost?pid="+id;
     }
 
-
-    //按时间，倒序，列出帖子
     @RequestMapping("/listPostByTime")
     public String listPostByTime(int curPage,Model model){
         PageBean<Post> pageBean = postService.listPostByTime(curPage);
@@ -60,30 +55,24 @@ public class PostController {
         return "index";
     }
 
-    //去帖子详情页面
     @RequestMapping("/toPost")
     public String toPost(int pid, Model model, HttpSession session){
         Integer sessionUid = (Integer) session.getAttribute("uid");
-        //获取帖子信息
         Post post = postService.getPostByPid(pid);
-        //获取评论信息
         List<Reply> replyList = replyService.listReply(pid);
-
-        //判断用户是否已经点赞
 
         boolean liked = false;
         if(sessionUid!=null){
             liked = postService.getLikeStatus(pid,sessionUid);
         }
-        //向模型中添加数据
         model.addAttribute("post",post);
         model.addAttribute("replyList",replyList);
         model.addAttribute("liked",liked);
         return "post";
     }
 
-    //异步点赞
-    @RequestMapping(value = "/ajaxClickLike",produces = "text/plain;charset=UTF-8")
+    // TODO: implement ajax like button
+    @RequestMapping(value = "/ajaxClickLike", produces = "text/plain;charset=UTF-8")
     public @ResponseBody
     String ajaxClickLike(int pid, HttpSession session){
         int sessionUid = (int) session.getAttribute("uid");

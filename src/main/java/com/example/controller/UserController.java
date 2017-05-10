@@ -32,12 +32,6 @@ public class UserController {
     @Autowired
     private QiniuService qiniuService;
 
-    /**
-     * 查看我的个人主页
-     * @param session
-     * @param model
-     * @return
-     */
     @RequestMapping("/toMyProfile")
     public String toMyProfile(HttpSession session, Model model) {
         int sessionUid = (int) session.getAttribute("uid");
@@ -48,40 +42,22 @@ public class UserController {
         return "myProfile";
     }
 
-
-    /**
-     * 查看别人的主页
-     * @param uid
-     * @param model
-     * @return
-     */
     @RequestMapping("/toProfile")
     public String toProfile(Integer uid, Model model, HttpSession session) {
-        //如果是自己的页面，直接跳转到本人个人主页
+        // profile of the logged in user
         Integer sessionUid = (Integer) session.getAttribute("uid");
         if(sessionUid != null && sessionUid.equals(uid)){
             return "redirect:toMyProfile";
         }
-        //判断是否关注当前用户
         boolean following = userService.getFollowStatus(sessionUid,uid);
-        //获得用户信息
         User user = userService.getProfile(sessionUid, uid);
-        //获得发帖列表
         List<Post> postList =  postService.getPostList(uid);
-        //向模型中添加数据
         model.addAttribute("following",following);
         model.addAttribute("user",user);
         model.addAttribute("postList",postList);
         return "profile";
     }
 
-
-    /**
-     * 去编辑信息的页面
-     * @param session
-     * @param model
-     * @return
-     */
     @RequestMapping("/toEditProfile")
     public String toEditProfile(HttpSession session, Model model){
         int uid = (int) session.getAttribute("uid");
@@ -90,11 +66,6 @@ public class UserController {
         return "editProfile";
     }
 
-    /**
-     * 编辑信息
-     * @param user
-     * @return
-     */
     @RequestMapping("/editProfile")
     public String editProfile(User user){
         System.out.println(user);
@@ -131,29 +102,29 @@ public class UserController {
     }
 
 
+    // TODO: implement update avatar
     @RequestMapping("/updateHeadUrl")
     public String updateHeadUrl(MultipartFile myFileName, Model model, HttpSession session) throws IOException {
-        // 文件类型限制
         String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
         boolean allowed = Arrays.asList(allowedType).contains(myFileName.getContentType());
         if (!allowed) {
-            model.addAttribute("error3","图片格式仅限bmp，jpg，png，gif~");
+            model.addAttribute("error3","image format is can only be bmp，jpg，png，gif~");
             return "editProfile";
         }
-        // 图片大小限制
+
         if (myFileName.getSize() > 3 * 1024 * 1024) {
-            model.addAttribute("error3","图片大小限制在3M以下哦~");
+            model.addAttribute("error3","image size should not exceed 3M");
             return "editProfile";
         }
-        // 包含原始文件名的字符串
-        String fi = myFileName.getOriginalFilename();
-        // 提取文件拓展名
-        String fileNameExtension = fi.substring(fi.indexOf("."), fi.length());
-        // 生成云端的真实文件名
+
+        String filename = myFileName.getOriginalFilename();
+
+        String fileNameExtension = filename.substring(filename.indexOf("."), filename.length());
+
         String remoteFileName = UUID.randomUUID().toString() + fileNameExtension;
         qiniuService.upload(myFileName.getBytes(), remoteFileName);
 
-        //更新数据库中头像URL
+
         int uid = (int) session.getAttribute("uid");
         userService.updateHeadUrl(uid,MyConstant.QINIU_IMAGE_URL + remoteFileName);
 

@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 /**
  * Created by hzeng on 4/19/17.
  */
+// TODO: rewrite database config
 @Configuration
 public class DatabaseConfig implements EnvironmentAware {
 
@@ -64,17 +65,3 @@ public class DatabaseConfig implements EnvironmentAware {
     }
 
 }
-
-
-//<!-- 扫描器 -->
-//<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-//<property name="basePackage" value="com.fc.mapper"/>
-//<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-//</bean>
-//
-//<!--线程池-->
-//<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-//<property name="corePoolSize" value="10"/>
-//<property name="maxPoolSize" value="20"/>
-//<property name="queueCapacity" value="20"/>
-//</bean>

@@ -90,7 +90,7 @@ public class LoginService {
 //        int checkActived = userMapper.selectActived(user);
 //        if(checkActived==0){
 //            map.put("status","no");
-//            map.put("error","您还没有激活账户哦，请前往邮箱激活~");
+//            map.put("error","Your account is not yet activated, please find the activation email in your mailbox");
 //            return map;
 //        }
 

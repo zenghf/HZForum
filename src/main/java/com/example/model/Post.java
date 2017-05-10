@@ -3,19 +3,13 @@ package com.example.model;
 
 public class Post {
     private Integer pid;
-    //标题和内容
     private String title;
     private String content;
-    //两个时间
     private String publishTime;
     private String replyTime;
-
-    //三个数量
     private Integer replyCount;
     private Integer likeCount;
     private Integer scanCount;
-
-    //两个外键
     private User user;
     private Topic topic;
 

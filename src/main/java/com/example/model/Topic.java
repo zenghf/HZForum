@@ -3,11 +3,8 @@ package com.example.model;
 public class Topic {
 
     private Integer tid;
-    //名称
     private String name;
-    //描述
     private String content;
-    //图片
     private String image;
 
     public Topic() {}

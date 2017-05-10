@@ -26,28 +26,28 @@ public class MailTask implements Runnable {
         javaMailSender.send(new MimeMessagePreparator() {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
-                System.out.println("开始发邮件...");
+                System.out.println("start sending email...");
                 MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true,"UTF-8");
                 mimeMessageHelper.setFrom(MyConstant.MAIL_FROM);
                 mimeMessageHelper.setTo(email);
-                mimeMessageHelper.setSubject("一封激活邮件");
+                mimeMessageHelper.setSubject("HZForum activation");
                 StringBuilder sb  = new StringBuilder();
                 sb.append("<html><head></head><body>");
 
                 if(operation==1){
                     sb.append("<a href="+MyConstant.DOMAIN_NAME+"activate?code=");
                     sb.append(code);
-                    sb.append(">点击激活</a></body>");
+                    sb.append(">click to activate</a></body>");
                 }else{
-                    sb.append("是否将您的密码修改为:");
+                    sb.append("are you willing to change your passowrd to:");
                     sb.append(code.substring(0,8));
                     sb.append("，<a href="+MyConstant.DOMAIN_NAME+"verify?code="+code+">");
-                    sb.append("点击是</a></body>");
+                    sb.append(" Yes</a></body>");
                 }
 
                 mimeMessageHelper.setText(sb.toString(),true);
 
-                System.out.println("结束发邮件...");
+                System.out.println("finish sending email...");
             }
         });
     }

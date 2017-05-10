@@ -5,16 +5,10 @@ import java.util.List;
 public class Reply {
 
     private Integer rid;
-    //回帖内容
     private String content;
-    //两个外键，指向Post和User
     private Post post;
     private User user;
-
-    //回复时间
     private String replyTime;
-
-    //存储楼中楼的集合
     private List<Comment> commentList;
 
     public Reply() {}

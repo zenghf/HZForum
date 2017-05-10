@@ -20,7 +20,6 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    //去消息页面
     @RequestMapping("/toMessage")
     public String toMessage(Model model, HttpSession session) {
         Integer sessionUid = (Integer) session.getAttribute("uid");

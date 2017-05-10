@@ -8,6 +8,7 @@ import redis.clients.jedis.JedisPoolConfig;
 /**
  * Created by hzeng on 4/18/17.
  */
+// TODO: rewrite jedis config
 @Configuration
 @ConfigurationProperties("spring.redis.pool")
 public class JedisConfig {

@@ -16,11 +16,7 @@ public class TopicController {
     @Autowired
     private TopicService topicService;
 
-    /**
-     * 列出所有话题
-     * @param model
-     * @return
-     */
+
     @RequestMapping("/listTopic")
     public String listTopic(Model model){
         List<Topic> topicList = topicService.listTopic();

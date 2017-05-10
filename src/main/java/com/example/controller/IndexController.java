@@ -35,59 +35,47 @@ public class IndexController {
     @Autowired
     private QiniuService qiniuService;
 
-    /**
-     * 去主页
-     * @param model
-     * @param request
-     * @return
-     */
     @RequestMapping("/toIndex")
     public String toIndex(Model model, HttpSession session, HttpServletRequest request){
         System.out.println(request.getRemoteAddr());
-        //记录访问信息
         userService.record(request.getRequestURL(),request.getContextPath(),request.getRemoteAddr());
-        //列出帖子
         PageBean<Post> pageBean = postService.listPostByTime(1);
-        //列出用户
         List<User> userList = userService.listUserByTime();
-        //列出活跃用户
         List<User> hotUserList = userService.listUserByHot();
-        //向模型中添加数据
+
         model.addAttribute("pageBean",pageBean);
         model.addAttribute("userList",userList);
         model.addAttribute("hotUserList",hotUserList);
-//        Integer uid = (Integer) session.getAttribute("uid");
-//        model.addAttribute("uid", uid);
+
         return "index";
     }
 
 
-    //上传图片
+    // upload image
     @RequestMapping(value = "/upload", method = {RequestMethod.POST}, produces = "text/plain;charset=UTF-8")
     public
     @ResponseBody
     String upload(MultipartFile myFileName) throws IOException {
 
-        // 文件类型限制
+        // types of image
         String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
         boolean allowed = Arrays.asList(allowedType).contains(myFileName.getContentType());
         if (!allowed) {
-            return "error|不支持的类型";
+            return "error: not supported!";
         }
-        // 图片大小限制
+        // size of the image should not exceed 3M
         if (myFileName.getSize() > 3 * 1024 * 1024) {
-            return "error|图片大小不能超过3M";
+            return "error: image size should not exceed 3M!";
         }
-        // 包含原始文件名的字符串
-        String fi = myFileName.getOriginalFilename();
-        // 提取文件拓展名
-        String fileNameExtension = fi.substring(fi.indexOf("."), fi.length());
-        // 生成云端的真实文件名
+        // file name
+        String filename = myFileName.getOriginalFilename();
+        String fileNameExtension = filename.substring(filename.indexOf("."), filename.length());
+        // TODO: add file upload service
         String remoteFileName = UUID.randomUUID().toString() + fileNameExtension;
 
         qiniuService.upload(myFileName.getBytes(), remoteFileName);
 
-        // 返回图片的URL地址
+        //
         return MyConstant.QINIU_IMAGE_URL + remoteFileName;
     }
 
