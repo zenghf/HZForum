@@ -13,6 +13,9 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -45,8 +48,9 @@ public class PostService {
 
     public int publishPost(Post post) {
 
-//        post.setPublishTime(MyUtil.formatDate(new Date()));
-//        post.setReplyTime(MyUtil.formatDate(new Date()));
+//        post.setPublishTime(new SimpleDateFormat("yyyy-MM-dd hh:MM:ss").format(new Date()));
+//        post.setReplyTime(new SimpleDateFormat("yyyy-MM-dd hh:MM:ss").format(new Date()));
+
         post.setReplyCount(0);
         post.setLikeCount(0);
         post.setScanCount(0);

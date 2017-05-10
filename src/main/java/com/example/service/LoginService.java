@@ -3,16 +3,13 @@ package com.example.service;
 import com.example.async.MailTask;
 import com.example.mapper.UserMapper;
 import com.example.model.User;
-import com.example.util.MyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,9 +54,9 @@ public class LoginService {
 
         // new user
         user.setActived(0);
-        String activateCode = MyUtil.createActivateCode();
+        String activateCode = new Date().getTime() + UUID.randomUUID().toString().replace("-","");
         user.setActivateCode(activateCode);
-        user.setJoinTime(MyUtil.formatDate(new Date()));
+        user.setJoinTime(new SimpleDateFormat("yyyy-MM-dd hh:MM:ss").format(new Date()));
         user.setUsername("HZ_" + new Random().nextInt(10000));
         //TODO add head image url to settings
         user.setHeadUrl("/image/programmer.jpg");
