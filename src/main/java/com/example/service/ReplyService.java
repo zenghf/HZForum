@@ -10,7 +10,6 @@ import com.example.model.Comment;
 import com.example.model.Post;
 import com.example.model.Reply;
 import com.example.model.User;
-import com.example.util.MyConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
@@ -20,6 +19,9 @@ import java.util.List;
 
 @Service
 public class ReplyService {
+
+    private static final int OPERATION_REPLY = 2;
+    private static final int OPERATION_COMMENT = 3;
 
     @Autowired
     private ReplyMapper replyMapper;
@@ -46,7 +48,7 @@ public class ReplyService {
         replyMapper.insertReply(reply);
         postMapper.updateReplyCount(pid);
         postMapper.updateReplyTime(pid);
-        taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,pid,0,sessionUid, MyConstant.OPERATION_REPLY));
+        taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,pid,0,sessionUid, OPERATION_REPLY));
 
     }
 
@@ -59,7 +61,7 @@ public class ReplyService {
         comment.setContent(content);
         replyMapper.insertComment(comment);
         postMapper.updateReplyTime(pid);
-        taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,pid,rid,sessionUid, MyConstant.OPERATION_COMMENT));
+        taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,pid,rid,sessionUid, OPERATION_COMMENT));
 
     }
 

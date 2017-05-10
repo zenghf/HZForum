@@ -6,7 +6,6 @@ import com.example.model.User;
 import com.example.service.PostService;
 import com.example.service.QiniuService;
 import com.example.service.UserService;
-import com.example.util.MyConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;

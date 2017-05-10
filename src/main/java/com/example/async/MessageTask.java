@@ -7,9 +7,12 @@ import com.example.mapper.ReplyMapper;
 import com.example.mapper.UserMapper;
 import com.example.model.Message;
 import com.example.model.User;
-import com.example.util.MyConstant;
 
 public class MessageTask implements Runnable {
+
+    private static final int OPERATION_CLICK_LIKE = 1;
+    private static final int OPERATION_REPLY = 2;
+    private static final int OPERATION_COMMENT = 3;
 
     private MessageMapper messageMapper;
     private UserMapper userMapper;
@@ -42,13 +45,13 @@ public class MessageTask implements Runnable {
         message.setOtherUsername(user.getUsername());
         message.setPostId(pid);
 
-        if(operation== MyConstant.OPERATION_CLICK_LIKE){
+        if(operation== OPERATION_CLICK_LIKE){
             message.setOperation("liked your post");
             message.setDisplayedContent(postMapper.getTitleByPid(pid));
-        }else if(operation==MyConstant.OPERATION_REPLY){
+        }else if(operation==OPERATION_REPLY){
             message.setOperation("replied your post");
             message.setDisplayedContent(postMapper.getTitleByPid(pid));
-        }else if(operation==MyConstant.OPERATION_COMMENT){
+        }else if(operation==OPERATION_COMMENT){
             message.setOperation("commented your post");
             String content = replyMapper.getContentByRid(rid);
             message.setDisplayedContent(content.substring(content.indexOf("<p>") + 3,content.indexOf("</p>")));

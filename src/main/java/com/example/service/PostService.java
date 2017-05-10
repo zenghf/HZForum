@@ -8,20 +8,18 @@ import com.example.mapper.ReplyMapper;
 import com.example.mapper.UserMapper;
 import com.example.model.PageBean;
 import com.example.model.Post;
-import com.example.util.MyConstant;
-import com.example.util.MyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-
-import java.util.Date;
 import java.util.List;
 
 
 @Service
 public class PostService {
+
+    private static final int OPERATION_CLICK_LIKE = 1;
 
     @Autowired
     private PostMapper postMapper;
@@ -103,7 +101,7 @@ public class PostService {
         Jedis jedis = jedisPool.getResource();
         jedis.sadd(pid+":like", String.valueOf(sessionUid));
         jedis.hincrBy("vote",sessionUid+"",1);
-        taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,pid,0,sessionUid, MyConstant.OPERATION_CLICK_LIKE));
+        taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,pid,0,sessionUid, OPERATION_CLICK_LIKE));
         String result = String.valueOf(jedis.scard(pid+":like"));
 
         if(jedis!=null){

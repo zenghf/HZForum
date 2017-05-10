@@ -3,7 +3,6 @@ package com.example.service;
 import com.example.async.MailTask;
 import com.example.mapper.UserMapper;
 import com.example.model.User;
-import com.example.util.MyConstant;
 import com.example.util.MyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;

@@ -66,6 +66,7 @@ spring:
         host: smtp.yeah.net
         username: fanchao100@yeah.net
         password: XXXXXX
+        domain: http://localhost:8080/df/
         java-mail-properties:
             mail.smtp.auth: true
     mapper.base-package: com.example.mapper
