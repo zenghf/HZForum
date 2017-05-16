@@ -19,7 +19,7 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
     // TODO: refactor interceptor
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        String[] list = {"/toIndex", "/upload", "/toLogin", "/register", "/login", "/activate", "/logout", "/toPost", "/listTopic", "/listPostByTime", "/forgetPassword", "/afterForgetPassword", "/verify", "/listImage"};
+        String[] list = {"/", "/toIndex", "/upload", "/toLogin", "/register", "/login", "/activate", "/logout", "/toPost", "/listTopic", "/listPostByTime", "/forgetPassword", "/afterForgetPassword", "/verify", "/listImage"};
         List<String> excludedUrls = Arrays.asList(list);
         LoginInterceptor interceptor = new LoginInterceptor();
         interceptor.setExcludedUrls(excludedUrls);

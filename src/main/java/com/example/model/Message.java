@@ -12,7 +12,7 @@ public class Message {
     private Integer postId;
     private String displayedContent;
 
-    private Date MsgTime;
+    private Date msgTime;
 
     public Message() {}
 
@@ -74,11 +74,11 @@ public class Message {
     }
 
     public Date getMsgTime() {
-        return MsgTime;
+        return msgTime;
     }
 
     public void setMsgTime(Date msgTime) {
-        MsgTime = msgTime;
+        this.msgTime = msgTime;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class Message {
                 ", operation='" + operation + '\'' +
                 ", postId=" + postId +
                 ", displayedContent='" + displayedContent + '\'' +
-                ", MsgTime=" + MsgTime +
+                ", msgTime=" + msgTime +
                 '}';
     }
 }

@@ -12,6 +12,4 @@ public interface TopicMapper {
 
     List<Topic> listTopic();
 
-    List<String> listImage();
-
 }

@@ -1,10 +1,12 @@
 package com.example.async;
 
-
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+
+import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 
 public class MailTask implements Runnable {
@@ -13,6 +15,9 @@ public class MailTask implements Runnable {
     private String email;
     private JavaMailSender javaMailSender;
     private int operation;
+
+    @Resource
+    public Environment env;
 
     @Value("${spring.mail.username}")
     String MAIL_FROM;

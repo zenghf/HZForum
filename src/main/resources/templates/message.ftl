@@ -20,7 +20,7 @@
                     <#list map[key] as m>
                         <li>
                             <a href="toProfile?uid=${m.otherId}">
-                                <span>${m.otherUsername}</span></a>${m.operation}<a href="toPost?pid=${m.postId}"><span>${m.displayedContent}</span>
+                                <span>${m.otherUsername}</span></a> ${m.operation} <a href="toPost?pid=${m.postId}"><span>${m.displayedContent}</span>
                             </a>
                         </li>
                     </#list>

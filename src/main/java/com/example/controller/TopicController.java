@@ -24,12 +24,6 @@ public class TopicController {
         return "topic";
     }
 
-    @RequestMapping("/listImage")
-    public String listImage(Model model){
-        List<String> imageList = topicService.listImage();
-        model.addAttribute("imageList",imageList);
-        return "image";
-    }
 }
 
 

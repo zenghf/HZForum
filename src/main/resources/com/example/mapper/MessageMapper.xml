@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.mapper.MessageMapper">
+    <resultMap type="com.example.model.Message" id="msgMap">
+        <id column="mid" property="mid"></id>
+        <result column="other_id" property="otherId"></result>
+        <result column="other_username" property="otherUsername"></result>
+        <result column="post_id" property="postId"></result>
+        <result column="displayed_content" property="displayedContent"></result>
+        <result column="msg_time" property="msgTime"></result>
+    </resultMap>
 
 
     <insert id="insertMessage">
@@ -8,7 +16,7 @@
         values(#{uid},#{otherId},#{otherUsername},#{operation},#{postId},#{displayedContent})
     </insert>
 
-    <select id="listMessageByUid" resultType="com.example.model.Message">
+    <select id="listMessageByUid" resultType="com.example.model.Message" resultMap="msgMap">
         select * from message where uid=#{uid}
     </select>
 

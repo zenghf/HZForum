@@ -38,7 +38,7 @@ public class IndexController {
     @Autowired
     private Environment env;
 
-    @RequestMapping("/toIndex")
+    @RequestMapping(value = {"/toIndex", "/"})
     public String toIndex(Model model, HttpSession session, HttpServletRequest request){
         System.out.println(request.getRemoteAddr());
         userService.record(request.getRequestURL(),request.getContextPath(),request.getRemoteAddr());

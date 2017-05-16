@@ -195,7 +195,7 @@
             url:"ajaxClickLike",
             data:{pid:${post.pid}},
             success:function(response,status,xhr){
-                likeButton.text("赞 "+response);
+                likeButton.text("like "+response);
                 likeButton.removeAttr("href");
             }
         });

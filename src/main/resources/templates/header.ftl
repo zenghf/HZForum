@@ -5,7 +5,7 @@
         <ul class="left-nav">
             <li class="current-nav"><a href="toIndex"">Home</a></li>
             <li><a href="listTopic"">Topics</a></li>
-            <li><a href="listImage"">Articles</a></li>
+            <#--<li><a href="listImage"">Articles</a></li>-->
             <li><a href="toMessage"">Messages</a></li>
         </ul>
 
