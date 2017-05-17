@@ -152,7 +152,7 @@ public class UserController {
     @RequestMapping("/verify")
     public String verify(String code){
         userService.verifyForgetPassword(code);
-        return "redirect:toLogin";
+        return "redirect:login";
     }
 }
 

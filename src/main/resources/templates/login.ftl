@@ -18,7 +18,7 @@
 		</div>
 		<div class="contents">
 			<div id="login-area">
-				<form action="login"" method="post">
+				<form action="#"" method="post">
 					<div class="error-message">${error!''}</div>
 				<table>
 					<tr>

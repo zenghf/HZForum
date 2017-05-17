@@ -1,14 +1,14 @@
 package com.example.config;
 
-import com.example.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * Created by hzeng on 4/19/17.
@@ -16,16 +16,30 @@ import java.util.List;
 @Configuration
 public class InterceptorConfig extends WebMvcConfigurerAdapter {
 
-    // TODO: refactor interceptor
+    public class LoginInterceptor extends HandlerInterceptorAdapter {
+
+        @Override
+        public boolean preHandle(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 Object handler) throws Exception {
+            if (request.getSession().getAttribute("uid") != null) {
+                return true;
+            }
+            response.sendRedirect("/login?next=".concat(request.getRequestURI()));
+            return false;
+        }
+    }
+
+
+    // TODO: refactor using properties file
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        String[] list = {"/", "/toIndex", "/upload", "/toLogin", "/register", "/login", "/activate", "/logout", "/toPost", "/listTopic", "/listPostByTime", "/forgetPassword", "/afterForgetPassword", "/verify", "/listImage"};
-        List<String> excludedUrls = Arrays.asList(list);
-        LoginInterceptor interceptor = new LoginInterceptor();
-        interceptor.setExcludedUrls(excludedUrls);
-        registry.addInterceptor(interceptor);
-//        registry.addInterceptor(new ThemeInterceptor()).addPathPatterns("/**").excludePathPatterns("/admin/**");
-//        registry.addInterceptor(new SecurityInterceptor()).addPathPatterns("/secure/*");
+        String[] list = {"/upload", "/toMessage", "/toPublish", "/publishPost", "/ajaxClickLike", "/reply", "/comment", "/newTopic",
+                "/toMyProfile", "/toEditProfile", "/editProfile", "/updatePassword", "/updateHeadUrl", "/follow", "/unfollow"};
+        InterceptorRegistration registration = registry.addInterceptor(new LoginInterceptor());
+        for (String pattern : list){
+            registration.addPathPatterns(pattern);
+        }
     }
 }
 

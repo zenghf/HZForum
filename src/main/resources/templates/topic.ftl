@@ -14,9 +14,11 @@
 		<div class="main-left">
 			<div class="share">
 				<div class="share-left"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Topic Plaza</div>
+				<#if Session.uid?exists>
 				<div class="share-right">
 					<a href="#" id="open-mask"><span class="glyphicon glyphicon-pencil"></span>&nbsp;New Topic</a>
 				</div>
+				</#if>
 			</div>
 			<div class="topic-root">
 				<div class="topic-root-wrap">
@@ -61,8 +63,8 @@
 	<div class="mask"></div>
 	<div class="upon-mask">
 		<form>
-			<input type="text" name="" placeholder="Please input a topic">
-			<button>Submit</button>
+			<input type="text" name="" id="new-topic" placeholder="Please input a topic">
+			<button id="new-topic-submit">Submit</button>
 		</form>
 		<span id="close-mask">×</span>
 	</div>
@@ -87,6 +89,26 @@
 			uponMask.hide();
 		});
 	});
+
+    // New Topic
+    var newTopic = $("#new-topic");
+    var newTopicButton = $("#new-topic-submit");
+    newTopicButton.click(function(){
+        var topic = newTopic.val();
+        if (topic){
+            topic = topic.trim();
+		}
+		console.log("before topic");
+		console.log(topic);
+        if (topic){
+			$.post("newTopic123", {"topic":topic},
+				function(response,status,xhr){
+			    	console.log("response: " + response + "; status: " + status);
+                    location.reload();
+				}
+			);
+        }
+    });
 </script>
 </body>
 </html>

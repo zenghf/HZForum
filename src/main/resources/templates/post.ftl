@@ -33,6 +33,9 @@
 			<div class="post-content">
 				<div class="post-title">
 					<span class="glyphicon glyphicon-th"></span>&nbsp;${post.title}
+                    <div class="topic-root"><div class="topic-root-wrap">
+                        <a href="#">${post.topic.name}</a>
+                    </div></div>
 				</div>
 				<div class="post-user clearfix">
 					<div class="user-image"><a href="toProfile?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a></div>

@@ -9,6 +9,11 @@
         <result column="head_url" property="headUrl"></result>
     </resultMap>
 
+    <resultMap type="com.example.model.Topic" id="topicMap">
+        <id column="tid" property="tid"></id>
+        <result column="name" property="name"></result>
+    </resultMap>
+
     <resultMap type="com.example.model.Post" id="postMap">
         <id column="pid" property="pid"/>
         <result column="title" property="title"/>
@@ -30,6 +35,7 @@
         <result column="like_count" property="likeCount"/>
         <result column="scan_count" property="scanCount"/>
         <association property="user" javaType="com.example.model.User" resultMap="userMap" />
+        <association property="topic" javaType="com.example.model.Topic" resultMap="topicMap"/>
     </resultMap>
 
 
@@ -56,8 +62,9 @@
     </select>
 
     <select id="getPostByPid" resultMap="post2Map">
-        select u.uid,u.username,u.head_url,p.pid,p.title,p.content,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count from post p
+        select u.uid,u.username,u.head_url,p.pid,p.title,p.content,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count, t.tid, t.name from post p
         join user u on p.uid = u.uid
+        join topic t on t.tid = p.tid
         where p.pid=#{pid}
     </select>
 

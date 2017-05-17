@@ -12,4 +12,6 @@ public interface TopicMapper {
 
     List<Topic> listTopic();
 
+    void insertTopic(String topic);
+
 }

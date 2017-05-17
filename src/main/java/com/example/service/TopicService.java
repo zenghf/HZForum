@@ -19,5 +19,9 @@ public class TopicService {
         return topicMapper.listTopic();
     }
 
+    public boolean insertTopic(String topic){
+        topicMapper.insertTopic(topic);
+        return true;
+    }
 }
 

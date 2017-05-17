@@ -20,9 +20,9 @@
                 </li>
             <#else>
                 <li class="login">
-                    <a href="toLogin"">Login</a>
-                    <a href="toLogin"">/</a>
-                    <a href="toLogin"#register">Register</a>
+                    <a href="login"">Login</a>
+                    <a href="login"">/</a>
+                    <a href="login"#register">Register</a>
                 </li>
             </#if>
 

@@ -6,22 +6,36 @@ import com.example.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("/")
 public class LoginController {
 
     @Autowired
     private LoginService loginService;
 
-    @RequestMapping("/toLogin")
-    public String toLogin(){
+    @GetMapping("/login")
+    public String toLogin(@RequestParam("next") Optional<String> next){
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam("next") Optional<String> next, User user, Model model, HttpSession session){
+        Map<String,Object> map = loginService.login(user);
+        if(map.get("status").equals("yes")){
+            session.setAttribute("uid",map.get("uid"));
+            session.setAttribute("headUrl",map.get("headUrl"));
+            // return "rediect:/toMyProfile";
+            return "redirect:".concat(next.orElse("/toMyProfile"));
+        }else {
+            model.addAttribute("email",user.getEmail());
+            model.addAttribute("error",map.get("error"));
+            return "login";
+        }
     }
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
@@ -34,20 +48,6 @@ public class LoginController {
             model.addAttribute("register","yes");
             model.addAttribute("email",user.getEmail());
             model.addAttribute("error",result);
-            return "login";
-        }
-    }
-
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String login(User user, Model model, HttpSession session){
-        Map<String,Object> map = loginService.login(user);
-        if(map.get("status").equals("yes")){
-            session.setAttribute("uid",map.get("uid"));
-            session.setAttribute("headUrl",map.get("headUrl"));
-            return "redirect:toMyProfile";
-        }else {
-            model.addAttribute("email",user.getEmail());
-            model.addAttribute("error",map.get("error"));
             return "login";
         }
     }
