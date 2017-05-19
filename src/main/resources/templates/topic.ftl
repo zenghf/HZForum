@@ -23,7 +23,7 @@
 			<div class="topic-root">
 				<div class="topic-root-wrap">
 					<#list topicList as topic>
-                        <a href="#">${topic.name}</a>
+                        <a href="toIndex?tid=${topic.tid}">${topic.name}</a>
 					</#list>
 
 				</div>
@@ -34,18 +34,18 @@
 					<#list topicList as topic>
 						<#if topic?counter % 2 != 0>
 							<div class="topic-odd relative">
-								<a href="#" class="topic-image"><img src="${topic.image}"></a>
+								<a href="toIndex?tid=${topic.tid}" class="topic-image"><img src="${topic.image}"></a>
 								<div class="topic-content">
-									<a href="#" class="topic-name">${topic.name}</a>
-									<a href="#" class="topic-desc">${topic.content}</a>
+									<a href="toIndex?tid=${topic.tid}" class="topic-name">${topic.name}</a>
+									<a href="toIndex?tid=${topic.tid}" class="topic-desc">${topic.content}</a>
 								</div>
 							</div>
 						<#else>
 							<div class="topic-even relative">
-								<a href="#" class="topic-image"><img src="${topic.image}"></a>
+								<a href="toIndex?tid=${topic.tid}" class="topic-image"><img src="${topic.image}"></a>
 								<div class="topic-content">
-									<a href="#" class="topic-name">${topic.name}</a>
-									<a href="#" class="topic-desc">${topic.content}</a>
+									<a href="toIndex?tid=${topic.tid}" class="topic-name">${topic.name}</a>
+									<a href="toIndex?tid=${topic.tid}" class="topic-desc">${topic.content}</a>
 								</div>
 							</div>
 						</#if>

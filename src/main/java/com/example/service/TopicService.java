@@ -19,9 +19,14 @@ public class TopicService {
         return topicMapper.listTopic();
     }
 
+    public Topic getTopicById(int tid) {
+        return topicMapper.getTopicById(tid);
+    }
+
     public boolean insertTopic(String topic){
         topicMapper.insertTopic(topic);
         return true;
     }
+
 }
 

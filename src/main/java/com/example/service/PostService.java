@@ -89,10 +89,10 @@ public class PostService {
 //    }
 
 
-    public PageBean<Post> listPost(int curPage, String orderBy) {
+    public PageBean<Post> listPost(int curPage, String orderBy, int tid) {
         int limit = 8;
         int offset = (curPage-1) * limit;
-        int allCount = postMapper.selectPostCount();
+        int allCount = postMapper.selectPostCount(tid);
         int allPage = 0;
         if (allCount <= limit) {
             allPage = 1;
@@ -101,7 +101,7 @@ public class PostService {
         } else {
             allPage = allCount / limit + 1;
         }
-        List<Post> postList = postMapper.listPost(offset, limit, orderBy);
+        List<Post> postList = postMapper.listPost(offset, limit, orderBy, tid);
         Jedis jedis = jedisPool.getResource();
         for(Post post : postList){
             post.setLikeCount((int)(long)jedis.scard(post.getPid()+":like"));

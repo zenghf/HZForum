@@ -36,7 +36,7 @@ public class UserService {
 //        this.jedisPool = jedisPool;
 //    }
 
-    public User getProfile(int sessionUid, int uid) {
+    public User getProfile(Integer sessionUid, Integer uid) {
         if(sessionUid!=uid){
             userMapper.updateScanCount(uid);
         }
@@ -108,7 +108,9 @@ public class UserService {
         }
     }
 
-    public boolean getFollowStatus(int sessionUid, int uid) {
+    public boolean getFollowStatus(Integer sessionUid, Integer uid) {
+        if (sessionUid == null)
+            return false;
         Jedis jedis = jedisPool.getResource();
         boolean following = jedis.sismember(sessionUid+":follow", String.valueOf(uid));
         if(jedis!=null){

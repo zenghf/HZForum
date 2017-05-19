@@ -5,6 +5,7 @@ import com.example.model.Post;
 import com.example.model.User;
 import com.example.service.PostService;
 import com.example.service.QiniuService;
+import com.example.service.TopicService;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -32,6 +33,9 @@ public class IndexController {
     private UserService userService;
 
     @Autowired
+    private TopicService topicService;
+
+    @Autowired
     private PostService postService;
 
     @Autowired
@@ -41,20 +45,26 @@ public class IndexController {
     private Environment env;
 
     @RequestMapping(value = {"/toIndex", "/"})
-    public String toIndex(@RequestParam("orderBy") Optional<String> orderBy,
+    public String toIndex(@RequestParam("tid") Optional<Integer> tid,
+                          @RequestParam("orderBy") Optional<String> orderBy,
                           @RequestParam("curPage") Optional<Integer> curPage,
                           Model model, HttpSession session, HttpServletRequest request){
         // System.out.println(request.getRemoteAddr());
         String order = orderBy.orElse("time");
         userService.record(request.getRequestURL(),request.getContextPath(),request.getRemoteAddr());
-        PageBean<Post> pageBean = postService.listPost(curPage.orElse(1), order);
+        PageBean<Post> pageBean = postService.listPost(curPage.orElse(1), order, tid.orElse(0));
         List<User> userList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
-
+        String tidString = "";
+        if (tid.isPresent())
+            tidString = "tid=" + tid.get() + "&";
+        if (tid.isPresent())
+            model.addAttribute("tag", topicService.getTopicById(tid.get()).getName());
         model.addAttribute("order", order);
         model.addAttribute("pageBean",pageBean);
         model.addAttribute("userList",userList);
         model.addAttribute("hotUserList",hotUserList);
+        model.addAttribute("tidString", tidString);
 
         return "index";
     }
