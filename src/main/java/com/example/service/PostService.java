@@ -61,7 +61,35 @@ public class PostService {
         return post.getPid();
     }
 
-    public PageBean<Post> listPostByTime(int curPage) {
+//    public PageBean<Post> listPostByTime(int curPage) {
+//        int limit = 8;
+//        int offset = (curPage-1) * limit;
+//        int allCount = postMapper.selectPostCount();
+//        int allPage = 0;
+//        if (allCount <= limit) {
+//            allPage = 1;
+//        } else if (allCount / limit == 0) {
+//            allPage = allCount / limit;
+//        } else {
+//            allPage = allCount / limit + 1;
+//        }
+//        List<Post> postList = postMapper.listPostByTime(offset,limit);
+//        Jedis jedis = jedisPool.getResource();
+//        for(Post post : postList){
+//            post.setLikeCount((int)(long)jedis.scard(post.getPid()+":like"));
+//        }
+//
+//        PageBean<Post> pageBean = new PageBean<>(allPage,curPage);
+//        pageBean.setList(postList);
+//
+//        if(jedis!=null){
+//            jedisPool.returnResource(jedis);
+//        }
+//        return pageBean;
+//    }
+
+
+    public PageBean<Post> listPost(int curPage, String orderBy) {
         int limit = 8;
         int offset = (curPage-1) * limit;
         int allCount = postMapper.selectPostCount();
@@ -73,7 +101,7 @@ public class PostService {
         } else {
             allPage = allCount / limit + 1;
         }
-        List<Post> postList = postMapper.listPostByTime(offset,limit);
+        List<Post> postList = postMapper.listPost(offset, limit, orderBy);
         Jedis jedis = jedisPool.getResource();
         for(Post post : postList){
             post.setLikeCount((int)(long)jedis.scard(post.getPid()+":like"));

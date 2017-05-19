@@ -46,7 +46,7 @@ public class PostController {
 
     @RequestMapping("/listPostByTime")
     public String listPostByTime(int curPage,Model model){
-        PageBean<Post> pageBean = postService.listPostByTime(curPage);
+        PageBean<Post> pageBean = postService.listPost(curPage, "time");
         List<User> userList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
         model.addAttribute("pageBean",pageBean);

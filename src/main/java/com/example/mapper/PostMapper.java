@@ -22,6 +22,7 @@ public interface PostMapper {
 //            "join user u on p.uid = u.uid " +
 //            "order by p.reply_time desc limit #{offset},#{limit}")
     List<Post> listPostByTime(@Param("offset") int offset, @Param("limit") int limit);
+    List<Post> listPost(@Param("offset") int offset, @Param("limit") int limit, @Param("orderBy") String orderBy);
 
     int selectPostCount();
 

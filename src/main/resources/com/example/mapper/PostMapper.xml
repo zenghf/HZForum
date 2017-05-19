@@ -57,6 +57,23 @@
         order by p.reply_time desc limit #{offset},#{limit}
     </select>
 
+    <select id="listPost" resultMap="postMap">
+        select u.uid,u.username,u.head_url,p.pid,p.title,p.publish_time,p.reply_time,p.reply_count,p.like_count,p.scan_count from post p
+        join user u on p.uid = u.uid
+        <choose>
+            <when test="orderBy == 'view'">
+                order by p.scan_count
+            </when>
+            <when test="orderBy == 'like'">
+                order by p.like_count
+            </when>
+            <otherwise>
+                order by p.publish_time
+            </otherwise>
+        </choose>
+        desc limit #{offset},#{limit}
+    </select>
+
     <select id="selectPostCount" resultType="int">
         select count(*) from post
     </select>

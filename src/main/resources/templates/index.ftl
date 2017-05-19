@@ -20,9 +20,10 @@
 			<div class="post">
 				<div class="post-wrap">
 					<div class="post-choice">
-						<a href="#" class="post-choice-current">Recent</a>
-						<a href="#">Hottest</a>
-						<a href="#" class="post-choice-last">Starred</a>
+						<a href="?orderBy=time" class="${(order=='time')?then('post-choice-current','')}">Recent</a>
+						<a href="?orderBy=view" class="${(order=='view')?then('post-choice-current','')}">Hottest</a>
+						<a href="?orderBy=like" class="${(order=='like')?then('post-choice-current','')}">Most Liked</a>
+                        <#--<a href="#" class="post-choice-last">Starred</a>-->
 					</div>
 
 					<ul class="post-list">
@@ -57,10 +58,10 @@
                     <nav class="col-md-10 col-md-offset-2">
                         <ul class="pagination pagination-sm">
                             <#--First Page-->
-                            <li><a href="listPostByTime?curPage=1">First</a></li>
+                            <li><a href="toIndex?orderBy=${order}&curPage=1">First</a></li>
                             <#--Previous Page-->
                             <#if pageBean.curPage!=1>
-                                <li><a href="listPostByTime?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a></li>
+                                <li><a href="toIndex?orderBy=${order}&curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a></li>
                             <#else>
                                 <li><span>&laquo;</span></li>
                             </#if>
@@ -68,31 +69,31 @@
                             <#--Center-->
                             <#if pageBean.allPage lte 10>
                                 <#list 1..pageBean.allPage as i>
-                                    <li class="pageNum"><a href="listPostByTime?curPage=${i }">${i }</a></li>
+                                    <li class="pageNum"><a href="toIndex?orderBy=${order}&curPage=${i }">${i }</a></li>
                                 </#list>
                             <#elseif pageBean.curPage lte 5>
                                 <#list 1..10 as i>
-                                    <li class="pageNum"><a href="listPostByTime?curPage=${i }">${i }</a></li>
+                                    <li class="pageNum"><a href="toIndex?orderBy=${order}&curPage=${i }">${i }</a></li>
                                 </#list>
                             <#elseif pageBean.allPage - pageBean.curPage lte 5>
                                 <#list (pageBean.allPage-9)..pageBean.allPage as i>
-                                    <li class="pageNum"><a href="listPostByTime?curPage=${i }">${i }</a></li>
+                                    <li class="pageNum"><a href="toIndex?orderBy=${order}&curPage=${i }">${i }</a></li>
                                 </#list>
                             <#else>
                                 <#list (pageBean.curPage-4)..(pageBean.curPage+5) as i>
-                                    <li class="pageNum"><a href="listPostByTime?curPage=${i }">${i }</a></li>
+                                    <li class="pageNum"><a href="toIndex?orderBy=${order}&curPage=${i }">${i }</a></li>
                                 </#list>
                             </#if>
 
                             <#--Next Page-->
                             <#if pageBean.curPage != pageBean.allPage>
-                                <li><a href="listPostByTime?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
+                                <li><a href="toIndex?orderBy=${order}&curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
                             <#else>
                                 <li><span>&raquo;</span></li>
                             </#if>
 
                             <#--Last Page    -->
-                            <li><a href="listPostByTime?curPage=${pageBean.allPage}">Last</a></li>
+                            <li><a href="toIndex?orderBy=${order}&curPage=${pageBean.allPage}">Last</a></li>
                         </ul>
                     </nav>
 

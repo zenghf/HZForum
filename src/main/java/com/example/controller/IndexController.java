@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -39,13 +41,17 @@ public class IndexController {
     private Environment env;
 
     @RequestMapping(value = {"/toIndex", "/"})
-    public String toIndex(Model model, HttpSession session, HttpServletRequest request){
-        System.out.println(request.getRemoteAddr());
+    public String toIndex(@RequestParam("orderBy") Optional<String> orderBy,
+                          @RequestParam("curPage") Optional<Integer> curPage,
+                          Model model, HttpSession session, HttpServletRequest request){
+        // System.out.println(request.getRemoteAddr());
+        String order = orderBy.orElse("time");
         userService.record(request.getRequestURL(),request.getContextPath(),request.getRemoteAddr());
-        PageBean<Post> pageBean = postService.listPostByTime(1);
+        PageBean<Post> pageBean = postService.listPost(curPage.orElse(1), order);
         List<User> userList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
 
+        model.addAttribute("order", order);
         model.addAttribute("pageBean",pageBean);
         model.addAttribute("userList",userList);
         model.addAttribute("hotUserList",hotUserList);
