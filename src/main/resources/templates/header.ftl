@@ -1,7 +1,7 @@
 
 <div class="header clearfix">
     <div class="w">
-        <h1 class="logo"><a href="toIndex"">DF</a></h1>
+        <h1 class="logo"><a href="toIndex"">HZ</a></h1>
         <ul class="left-nav">
             <li class="current-nav"><a href="toIndex"">Home</a></li>
             <li><a href="listTopic"">Topics</a></li>
